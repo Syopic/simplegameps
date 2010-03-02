@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Border xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  toolTip="{userName}"
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="70" height="87" textAlign="center" currentState="start">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			[Bindable]
+			private var avatarImgPath:String = "D:/_work/SocialFramework/SimpleGame/assets/img/avatar.jpg";
+			
+			[Bindable]
+			private var userName:String = "nothing";
+			
+			[Bindable]
+			private var userId:String = "0";
+			
+			[Bindable]
+			public var place:int = 0;
+			
+			public function setData(jsonObj:*):void {
+				currentState = "start";
+				avatarImgPath = jsonObj.photo;
+				userName = jsonObj.first_name + " " + jsonObj.last_name;
+				userId = jsonObj.uid;
+			}
+			
+			private function loadAvatarHandler(event:Event):void {
+				var scaleValue:Number = 1;
+				if (avatarImg.content.width > avatarImg.content.height) {
+					scaleValue = 55 / avatarImg.content.width;
+				} else {
+					scaleValue = 55 / avatarImg.content.height;
+				}
+				avatarImg.content.scaleY = scaleValue;
+				avatarImg.content.scaleX = scaleValue;
+				
+				if (avatarImg.content.width > avatarImg.content.height) {
+					avatarImg.content.y = (55 - avatarImg.content.height) / 2;
+				} else {
+					avatarImg.content.x = (55 - avatarImg.content.width) / 2;
+				}
+			}
+			
+			public function clear():void {
+				currentState = "empty";
+				userName = "";
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="start"/>
+		<s:State name="empty"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Border id="avMask" x="6" y="6" width="55" height="55"  includeIn="start"/>
+	<s:Border x="6" y="6" width="55" height="55" mask="{avMask}" includeIn="start" backgroundColor="#FFFFFF" borderVisible="false">
+		<mx:Image id="avatarImg" source="{avatarImgPath}" complete="loadAvatarHandler(event)" trustContent="true" loaderContext="{new LoaderContext(true)}"/>
+	</s:Border>
+	<s:Label x="-1" y="70" text="{userId}" width="71" textAlign="center" includeIn="start"/>
+	<s:Border x="19" y="46" width="30" height="20" textAlign="center" dropShadowVisible="false" backgroundColor="#FFFFFF" includeIn="start">
+		<s:Label text="{place}" width="29" textAlign="center" x="-1" y="4"/>
+	</s:Border>
+</s:Border>

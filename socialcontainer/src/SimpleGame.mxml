@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   creationComplete="init();"
+			   frameRate="41"
+			   xmlns:mx="library://ns.adobe.com/flex/halo" width="730" height="730" xmlns:friendsPanel="ua.com.syo.simplegame.view.components.friendsPanel.*" xmlns:targets="ua.kiev.djm.core.log.targets.*" currentState="expand">
+	
+	<fx:Script>
+		<![CDATA[
+			import ua.com.syo.simplegame.model.Model;
+			
+			public function init():void {
+				Model.instance.init();
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="expand"/>
+		<s:State name="collapse"/>
+	</s:states>
+	
+	<s:Border width="100%" height="100%">
+		<mx:SWFLoader width="100%" height="100%"  source="../assets/concept/prot2.swf"/>
+		<friendsPanel:FriendsPanel id="friendPanel" x="4" bottom="4" x.collapse="4" bottom.collapse="-120"/>
+		<s:Button id="hideButton" label="v" height="30" width="30" click="{if (currentState != 'collapse') {currentState = 'collapse'; hideButton.label = '^'} else {currentState = 'expand'; hideButton.label = 'v' }}"  x="693" y="693"/>
+	</s:Border>
+	
+	<s:transitions>
+		<s:Transition id="myTransition" fromState="expand" toState="collapse">
+			<s:Parallel id="t1" targets="{[friendPanel]}">
+				<mx:Move  duration="200"/>
+			</s:Parallel>
+		</s:Transition>
+		<s:Transition id="myTransition1" fromState="collapse" toState="expand">
+			<s:Parallel id="t2" targets="{[friendPanel]}">
+				<mx:Move  duration="200"/>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+
+	<!--<targets:FlexLogPanel />-->
+</s:Application>

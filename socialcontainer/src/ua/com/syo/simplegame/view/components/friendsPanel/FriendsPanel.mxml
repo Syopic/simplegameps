@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Border xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="680" height="100" xmlns:friendsPanel="ua.com.syo.simplegame.view.components.friendsPanel.*" backgroundColor="#FFFFFF" backgroundAlpha="1.0">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			private var friendArr:Array;
+			
+			private var itemsNum:int = 8;
+			private var currentPage:int = 0;
+			private var pagesNum:int = 0;
+			
+			public function setData(jsonObj:*):void {
+				friendArr = jsonObj;
+				pagesNum = int(friendArr.length / itemsNum) + 1;
+				showPage(0);
+			}
+			
+			private function showPage(pageN:int):void {
+					var arr:Array = friendArr.slice(pageN * itemsNum, pageN * itemsNum + itemsNum);
+					
+					for(var i:int = 0; i < itemsNum; i++) {	
+						if (i < arr.length) {
+							FriendItem(this["i" + (i + 1)]).setData(friendArr[pageN * itemsNum + i]);
+							FriendItem(this["i" + (i + 1)]).place = pageN * itemsNum + i + 1;							
+						} else {
+							FriendItem(this["i" + (i + 1)]).clear();
+						}
+					}
+			}
+			
+			private function nextPageHandler(event:MouseEvent):void {
+				pagesNum = int(friendArr.length / itemsNum) + 1;
+				if (currentPage < (pagesNum - 1)) { 
+					currentPage ++;
+					showPage(currentPage);
+				}
+				
+			}
+			
+			private function prewPageHandler(event:MouseEvent):void {
+				if (currentPage > 0) { 
+					currentPage --;
+					showPage(currentPage);
+				}
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:Button x="5" y="61" label="&lt;" height="30" width="30" textAlign="left" click="prewPageHandler(event)"/>
+	<s:Button x="39" y="61" label="&gt;" height="30" width="30" click="nextPageHandler(event)"/>
+	<friendsPanel:FriendItem x="77" y="5" id="i1">
+	</friendsPanel:FriendItem>
+	<friendsPanel:FriendItem x="152" y="5" id="i2">
+	</friendsPanel:FriendItem>
+	<friendsPanel:FriendItem x="227" y="5" id="i3">
+	</friendsPanel:FriendItem>
+	<friendsPanel:FriendItem x="302" y="5" id="i4">
+	</friendsPanel:FriendItem>
+	<friendsPanel:FriendItem x="377" y="5" id="i5">
+	</friendsPanel:FriendItem>
+	<friendsPanel:FriendItem x="452" y="5" id="i6">
+	</friendsPanel:FriendItem>
+	<friendsPanel:FriendItem x="527" y="5" id="i7">
+	</friendsPanel:FriendItem>
+	<friendsPanel:FriendItem x="602" y="5" id="i8">
+	</friendsPanel:FriendItem>
+</s:Border>
