@@ -8,6 +8,7 @@
 	<fx:Script>
 		<![CDATA[
 			import ua.com.syo.simplegame.model.Model;
+			private var externalSwf:Object;
 			
 			public function init():void {
 				Model.instance.init();
@@ -16,8 +17,6 @@
 			private function loadCompleteHandler(event:Event):void {
 				externalSwf = event.target.content;
 			}				
-			
-			private var externalSwf:Object;
 
 			private function movePS():void {
 				externalSwf.connectTest();
