@@ -12,6 +12,16 @@
 			public function init():void {
 				Model.instance.init();
 			}
+			
+			private function loadCompleteHandler(event:Event):void {
+				externalSwf = event.target.content;
+			}				
+			
+			private var externalSwf:Object;
+
+			private function movePS():void {
+				externalSwf.connectTest();
+			}
 		]]>
 	</fx:Script>
 	<s:states>
@@ -20,11 +30,12 @@
 	</s:states>
 	
 	<s:Border width="100%" height="100%">
-		<mx:SWFLoader width="100%" height="100%"  source="../assets/concept/prot2.swf"/>
+		<mx:SWFLoader id="gameLoader" width="100%" height="100%"  source="Main.swf" complete="loadCompleteHandler(event)"/>
 		<friendsPanel:FriendsPanel id="friendPanel" x="4" bottom="4" x.collapse="4" bottom.collapse="-120"/>
-		<s:Button id="hideButton" label="v" height="30" width="30" click="{if (currentState != 'collapse') {currentState = 'collapse'; hideButton.label = '^'} else {currentState = 'expand'; hideButton.label = 'v' }}"  x="693" y="693"/>
+		<s:Button id="hideButton" label="v" height="30" width="30" click="{movePS(); if (currentState != 'collapse') {currentState = 'collapse'; hideButton.label = '^'} else {currentState = 'expand'; hideButton.label = 'v' }}"  x="693" y="693"/>
 	</s:Border>
 	
+	<targets:FlexLogPanel />
 	<s:transitions>
 		<s:Transition id="myTransition" fromState="expand" toState="collapse">
 			<s:Parallel id="t1" targets="{[friendPanel]}">
@@ -38,5 +49,4 @@
 		</s:Transition>
 	</s:transitions>
 
-	<!--<targets:FlexLogPanel />-->
 </s:Application>
