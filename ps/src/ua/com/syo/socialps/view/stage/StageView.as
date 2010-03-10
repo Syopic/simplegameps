@@ -9,6 +9,7 @@ package ua.com.syo.socialps.view.stage {
 	import flash.events.Event;
 	import flash.geom.Point;
 	
+	import ua.com.syo.socialps.data.Globals;
 	import ua.com.syo.socialps.data.LibraryData;
 	import ua.com.syo.socialps.view.stage.indicator.IndicatorView;
 	
@@ -43,7 +44,7 @@ package ua.com.syo.socialps.view.stage {
 		 */
 		public function init():void {
 			initBG();
-			initPS(355, 355);
+			initPS(Globals.stageW / 2, Globals.stageH / 2);
 			
 			levelContainer = new LibraryData.TestLevelC();
 			addChild(levelContainer);
@@ -96,7 +97,7 @@ package ua.com.syo.socialps.view.stage {
 			addChild(bgContainer);
 			
 			bgContainer.graphics.beginFill(0x00789F);
-			bgContainer.graphics.drawRect(0,0,730,730);
+			bgContainer.graphics.drawRect(0,0, Globals.stageW, Globals.stageH);
 			bgContainer.graphics.endFill();
 			
 			markContainer = new Sprite();

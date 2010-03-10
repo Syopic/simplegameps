@@ -5,6 +5,7 @@ package ua.com.syo.socialps.view.stage.indicator {
 	
 	import ua.com.syo.socialps.data.Globals;
 	import ua.com.syo.socialps.data.LibraryData;
+	import ua.kiev.djm.core.log.Logger;
 	
 	public class Indicator extends Sprite {
 		
@@ -17,6 +18,7 @@ package ua.com.syo.socialps.view.stage.indicator {
 			targetObj = target;
 			container = new LibraryData.IndicatorC();
 			addChild(container);
+			
 			halfW = Globals.stageW / 2;
 			halfH = Globals.stageH / 2;
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
@@ -31,8 +33,12 @@ package ua.com.syo.socialps.view.stage.indicator {
 			
 			
 			
-			var ky:Number = dy / halfW;
-			var kx:Number = dx / halfH;
+			var ky:Number = dx / (dy / halfW);
+			var kx:Number = dy / (dx / halfH);
+			
+			
+			//Logger.DEBUG("halfW: " + halfW); 
+			//Logger.DEBUG("halfH: " + halfH);
 			
 			if (Math.abs(dx) < halfW && Math.abs(dy) < halfH) {
 				visible = false;
@@ -41,48 +47,37 @@ package ua.com.syo.socialps.view.stage.indicator {
 				if (dy < 0 && dx < 0) {
 					if (Math.abs(dx) > Math.abs(dy)) {
 						this.x = 0;
-						this.y = halfW - dy / kx;
+						this.y = halfH - kx;
 					} else {
 						this.y = 0;
-						this.x = halfH - dx / ky;
+						this.x = halfW - ky;
 					}
 				} else if (dy < 0 && dx > 0) {
 					if (Math.abs(dx) > Math.abs(dy)) {
 						this.x = Globals.stageW;
-						this.y = halfW + dy / kx;
+						this.y = halfH + kx;
 					} else {
 						this.y = 0;
-						this.x = halfH - dx / ky;
+						this.x = halfW - ky;
 					}
 				} else if (dy > 0 && dx > 0) {
 					if (Math.abs(dx) > Math.abs(dy)) {
 						this.x = Globals.stageW;
-						this.y = halfW + dy / kx;
+						this.y = halfH + kx;
 					} else {
-						this.y = Globals.stageW;
-						this.x = halfH + dx / ky;
+						this.y = Globals.stageH;
+						this.x = halfW + ky;
 					}
 				} else if (dy > 0 && dx < 0) {
 					if (Math.abs(dx) > Math.abs(dy)) {
 						this.x = 0;
-						this.y = halfW - dy / kx;
+						this.y = halfH - kx;
 					} else {
-						this.y = Globals.stageW;
-						this.x = halfH + dx / ky;
+						this.y = Globals.stageH;
+						this.x = halfW + ky;
 					}
 				}
 			}
-			
-			/*if (dy < 0) {
-				this.y = 0;
-				this.x = 355 - dx / ky;
-			} else {
-				this.y = 730;
-				this.x = 355 + dx / ky;
-			}*/
-			
-			//trace(dx);
-			
 		}
 	}
 }
