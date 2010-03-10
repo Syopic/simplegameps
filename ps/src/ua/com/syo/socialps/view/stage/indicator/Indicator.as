@@ -14,6 +14,8 @@ package ua.com.syo.socialps.view.stage.indicator {
 		private var halfW:Number;
 		private var halfH:Number;
 		
+		private var dxTody:Number;
+		
 		public function Indicator(target:Sprite)	{
 			targetObj = target;
 			container = new LibraryData.IndicatorC();
@@ -21,6 +23,9 @@ package ua.com.syo.socialps.view.stage.indicator {
 			
 			halfW = Globals.stageW / 2;
 			halfH = Globals.stageH / 2;
+			
+			dxTody = Globals.stageW / Globals.stageH;
+			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
@@ -33,8 +38,8 @@ package ua.com.syo.socialps.view.stage.indicator {
 			
 			
 			
-			var ky:Number = dx / (dy / halfW);
-			var kx:Number = dy / (dx / halfH);
+			var ky:Number = dx / ((dy* dxTody) / halfW);
+			var kx:Number = (dy* dxTody) / (dx / halfH);
 			
 			
 			//Logger.DEBUG("halfW: " + halfW); 
@@ -45,7 +50,7 @@ package ua.com.syo.socialps.view.stage.indicator {
 			} else {
 				visible = true;
 				if (dy < 0 && dx < 0) {
-					if (Math.abs(dx) > Math.abs(dy)) {
+					if (Math.abs(dx) > Math.abs(dy * dxTody)) {
 						this.x = 0;
 						this.y = halfH - kx;
 					} else {
@@ -53,7 +58,7 @@ package ua.com.syo.socialps.view.stage.indicator {
 						this.x = halfW - ky;
 					}
 				} else if (dy < 0 && dx > 0) {
-					if (Math.abs(dx) > Math.abs(dy)) {
+					if (Math.abs(dx) > Math.abs(dy * dxTody)) {
 						this.x = Globals.stageW;
 						this.y = halfH + kx;
 					} else {
@@ -61,7 +66,7 @@ package ua.com.syo.socialps.view.stage.indicator {
 						this.x = halfW - ky;
 					}
 				} else if (dy > 0 && dx > 0) {
-					if (Math.abs(dx) > Math.abs(dy)) {
+					if (Math.abs(dx) > Math.abs(dy * dxTody)) {
 						this.x = Globals.stageW;
 						this.y = halfH + kx;
 					} else {
@@ -69,7 +74,7 @@ package ua.com.syo.socialps.view.stage.indicator {
 						this.x = halfW + ky;
 					}
 				} else if (dy > 0 && dx < 0) {
-					if (Math.abs(dx) > Math.abs(dy)) {
+					if (Math.abs(dx) > Math.abs(dy * dxTody)) {
 						this.x = 0;
 						this.y = halfH - kx;
 					} else {
