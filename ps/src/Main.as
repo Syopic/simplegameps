@@ -10,7 +10,7 @@ package {
 	import ua.kiev.djm.core.log.Logger;
 	import ua.kiev.djm.core.log.targets.LogPanel;
 	
-	[SWF(width="500", height = "200", frameRate = "41")]
+	[SWF(width="730", height = "730", frameRate = "41")]
 	
 	public class Main extends Sprite {
 		

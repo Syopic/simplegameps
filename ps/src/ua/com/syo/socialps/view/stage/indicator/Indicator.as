@@ -42,9 +42,6 @@ package ua.com.syo.socialps.view.stage.indicator {
 			var kx:Number = (dy* dxTody) / (dx / halfH);
 			
 			
-			//Logger.DEBUG("halfW: " + halfW); 
-			//Logger.DEBUG("halfH: " + halfH);
-			
 			if (Math.abs(dx) < halfW && Math.abs(dy) < halfH) {
 				visible = false;
 			} else {

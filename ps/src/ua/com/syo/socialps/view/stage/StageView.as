@@ -37,7 +37,8 @@ package ua.com.syo.socialps.view.stage {
 		private var objectsContainer:Sprite;
 		private var bonusContainer:Sprite;
 		
-		public var slower:Sprite;
+		private var waterMarkStack:Array;
+		
 		
 		/**
 		 * init
@@ -53,19 +54,30 @@ package ua.com.syo.socialps.view.stage {
 			bonusContainer = new Sprite();
 			addChild(bonusContainer);
 			
-			slower = new LibraryData.SlowerC();
-			bonusContainer.addChild(slower);
-			/*slower.x = 500;
-			slower.y = 300;*/
-			
 			addChild(IndicatorView.instance);
-			IndicatorView.instance.addIndicator("t", slower);
+			
+			for (var i:int = 0; i < 10; i++) {
+				var slower:Sprite = new LibraryData.SlowerC();
+				bonusContainer.addChild(slower);
+				slower.x = Math.random()* 3000 - 1500;
+				slower.y = Math.random()* 3000 - 1500;
+				
+				IndicatorView.instance.addIndicator("t"+i, slower);
+			}
+			
+			waterMarkStack = new Array();
+			for (var j:int = 0; j < 40; j++) {
+				var wm:WaterMarkView = new WaterMarkView();
+				waterMarkStack.push(wm);
+				markContainer.addChild(wm);
+			}
 			
 			
 		}
 		
+		private var incr:int = 0;
 		public function showWaterMark():void {
-			var wm:WaterMarkView = new WaterMarkView();
+			var wm:WaterMarkView = waterMarkStack[incr];
 			if (wm.isMarker) {
 				wm.x = -markContainer.x + ps.x + Math.random()*1000 - 500;
 				wm.y = -markContainer.y + ps.y + Math.random()*1000 - 500;
@@ -73,15 +85,11 @@ package ua.com.syo.socialps.view.stage {
 				wm.x = -markContainer.x + ps.x + Math.random()*10 - 5;
 				wm.y = -markContainer.y + ps.y + Math.random()*10 - 5;
 			}
-			wm.addEventListener(Event.COMPLETE, markCompleteHandler);
-			markContainer.addChild(wm);
-			wm = null;
-		}
-		
-		private function markCompleteHandler(event:Event):void {
-			var wm:WaterMarkView = event.currentTarget as WaterMarkView;
-			wm.removeEventListener(Event.COMPLETE, markCompleteHandler);
-			markContainer.removeChild(wm);
+			wm.show();
+			incr ++;
+			if (incr >= waterMarkStack.length){
+				incr = 0;
+			} 
 			wm = null;
 		}
 		

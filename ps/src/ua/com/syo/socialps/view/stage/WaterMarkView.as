@@ -17,19 +17,25 @@ package ua.com.syo.socialps.view.stage {
 				isMarker = true;
 				ww = new LibraryData.MarkC();
 			}
+			hide();
 			addChild(ww);
 			ww.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-			ww.play();	
+		}
+		
+		public function show():void {
+			ww.visible = true;
+			ww.gotoAndPlay(1);	
+		}
+		
+		public function hide():void {
+			ww.visible = false;
+			ww.stop();	
 		}
 		
 		private function enterFrameHandler(event:Event):void {
 			if (ww.currentFrame == ww.totalFrames ) {
-				ww.stop();
-				dispatchEvent(new Event(Event.COMPLETE));
+				hide();
 			}
-		}
-		
-		public function remove():void {
 		}
 	}
 }
