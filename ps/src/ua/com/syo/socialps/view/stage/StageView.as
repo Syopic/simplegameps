@@ -7,7 +7,10 @@
 package ua.com.syo.socialps.view.stage {
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	
+	import ua.com.syo.socialps.data.LibraryData;
+	import ua.com.syo.socialps.view.stage.indicator.IndicatorView;
 	
 	public class StageView extends Sprite {
 		
@@ -27,8 +30,13 @@ package ua.com.syo.socialps.view.stage {
 		
 		public var ps:PondSkaterView;
 		private var bgContainer:Sprite;
+		private var levelContainer:Sprite;
 		private var markContainer:Sprite;
+		
 		private var objectsContainer:Sprite;
+		private var bonusContainer:Sprite;
+		
+		public var slower:Sprite;
 		
 		/**
 		 * init
@@ -36,6 +44,23 @@ package ua.com.syo.socialps.view.stage {
 		public function init():void {
 			initBG();
 			initPS(355, 355);
+			
+			levelContainer = new LibraryData.TestLevelC();
+			addChild(levelContainer);
+			levelContainer.scaleX = levelContainer.scaleY = 8;
+			
+			bonusContainer = new Sprite();
+			addChild(bonusContainer);
+			
+			slower = new LibraryData.SlowerC();
+			bonusContainer.addChild(slower);
+			/*slower.x = 500;
+			slower.y = 300;*/
+			
+			addChild(IndicatorView.instance);
+			IndicatorView.instance.addIndicator("t", slower);
+			
+			
 		}
 		
 		public function showWaterMark():void {
@@ -76,16 +101,28 @@ package ua.com.syo.socialps.view.stage {
 			
 			markContainer = new Sprite();
 			addChild(markContainer);
+			
+			
 		}
 		
 		public function moveStage(dx:Number, dy:Number):void {
-			markContainer.x -= dx;
-			markContainer.y -= dy;
+			var p:Point = localToGlobal(new Point(ps.x, ps.y));
+			if (levelContainer.hitTestPoint(p.x, p.y, true)) {
+				levelContainer.alpha = 0.3;
+				if (ps.speed > 0) {
+					//ps.speed = 0;
+					//ps.dS = 0.5;
+				}
+			} else {
+				levelContainer.alpha = 1;
+			}
+			bonusContainer.x = levelContainer.x = markContainer.x -= dx;
+			bonusContainer.y = levelContainer.y = markContainer.y -= dy;
 		}
 		
 		
 		public function movePS():void {
-			ps.x += 10;
+			//ps.x += 10;
 		}
 
 	}

@@ -15,6 +15,15 @@ package ua.com.syo.socialps.data{
 		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "MarkC")]
 		public static var MarkC:Class;
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "TestLevel")]
+		public static var TestLevelC:Class;
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "Indicator")]
+		public static var IndicatorC:Class;
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "Slower")]
+		public static var SlowerC:Class;
 
 	}
 }

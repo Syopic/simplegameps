@@ -17,10 +17,13 @@ package ua.com.syo.socialps.view.stage {
 		
 		private var isRotation:Boolean = false;
 		private var insideMc:MovieClip;
-		private var speed:Number = 0;
+		public var speed:Number = 5;
+		public var dS:Number = 0.00;
 		private var angle:Number = 0;
 		private var dx:Number = 0;
 		private var dy:Number = 0;
+		
+		public var dAngle:Number = 1;
 		
 		private var angleInertion:Number = 0;
 		
@@ -47,10 +50,14 @@ package ua.com.syo.socialps.view.stage {
 		private function enterFrameHandler(event:Event):void {
 			if (isRotation) {
 				StageView.instance.showWaterMark();
-				angle -= Globals.dAngle;
+				angle -= dAngle;
 				insideMc.rotation = angle;
-				angleInertion = Globals.dAngle;
+				angleInertion = dAngle;
+				if (dAngle < 4) {
+					dAngle += 0.3;
+				}
 			} else {
+				dAngle = 1;
 				angleInertion -= 0.3;
 				if (angleInertion > 0) { 
 					angle -= angleInertion;
@@ -64,7 +71,7 @@ package ua.com.syo.socialps.view.stage {
 			if (insideMc.currentFrameLabel == "turn") {
 				insideMc.gotoAndStop("static");
 			} 
-			speed +=0.01;
+			speed += dS;
 			
 			dx = speed * Math.sin(Math.PI / 180 * angle);
 			dy = speed * (-Math.cos(Math.PI / 180 * angle)) * (Globals.isoScale);
