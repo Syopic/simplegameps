@@ -64,7 +64,9 @@ package ua.com.syo.socialps.view.stage {
 					insideMc.rotation = angle;
 				}
 			}
+			
 			if (--count < 0) {
+				StageView.instance.showWaterMark();
 				StageView.instance.showWaterMark();
 				count = Math.round(Math.random() * 10);
 			}

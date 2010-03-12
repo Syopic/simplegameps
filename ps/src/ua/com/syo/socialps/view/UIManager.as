@@ -8,6 +8,7 @@ package ua.com.syo.socialps.view {
 	import flash.display.Sprite;
 	
 	import ua.com.syo.socialps.view.stage.StageView;
+	import ua.com.syo.socialps.view.stage.indicator.IndicatorView;
 	
 	public class UIManager extends Sprite {
 		/**
@@ -23,9 +24,11 @@ package ua.com.syo.socialps.view {
 			return _instance;
 		}
 		
+		
 		public function init():void {
 			StageView.instance.init();
 			addChild(StageView.instance);
+			addChild(IndicatorView.instance);
 		}
 		
 	}

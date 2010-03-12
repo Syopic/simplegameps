@@ -6,12 +6,13 @@
  */
 package ua.com.syo.socialps.view.stage {
 	import flash.display.Sprite;
-	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
 	import ua.com.syo.socialps.data.Globals;
 	import ua.com.syo.socialps.data.LibraryData;
 	import ua.com.syo.socialps.view.stage.indicator.IndicatorView;
+	import ua.kiev.djm.core.log.Logger;
 	
 	public class StageView extends Sprite {
 		
@@ -29,13 +30,14 @@ package ua.com.syo.socialps.view.stage {
 		}
 		
 		
+		private var bonusContainer:Sprite;
+		
 		public var ps:PondSkaterView;
 		private var bgContainer:Sprite;
 		private var levelContainer:Sprite;
 		private var markContainer:Sprite;
 		
 		private var objectsContainer:Sprite;
-		private var bonusContainer:Sprite;
 		
 		private var waterMarkStack:Array;
 		
@@ -46,6 +48,7 @@ package ua.com.syo.socialps.view.stage {
 		public function init():void {
 			initBG();
 			initPS(Globals.stageW / 2, Globals.stageH / 2);
+			//initPS(Globals.stageW -100, Globals.stageH / 2);
 			
 			levelContainer = new LibraryData.TestLevelC();
 			addChild(levelContainer);
@@ -53,8 +56,6 @@ package ua.com.syo.socialps.view.stage {
 			
 			bonusContainer = new Sprite();
 			addChild(bonusContainer);
-			
-			addChild(IndicatorView.instance);
 			
 			for (var i:int = 0; i < 10; i++) {
 				var slower:Sprite = new LibraryData.SlowerC();
@@ -66,12 +67,31 @@ package ua.com.syo.socialps.view.stage {
 			}
 			
 			waterMarkStack = new Array();
-			for (var j:int = 0; j < 40; j++) {
+			for (var j:int = 0; j < 60; j++) {
 				var wm:WaterMarkView = new WaterMarkView();
 				waterMarkStack.push(wm);
 				markContainer.addChild(wm);
 			}
 			
+			//
+			addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
+		}
+		
+		private function mouseWheelHandler(event:MouseEvent):void {
+			var dw:Number = Number(event.delta)/100;
+			if (event.delta > 0) {
+				dw = 0.01;
+			} else {
+				dw = -0.01;
+			}
+			scaleX+=dw;
+			scaleY+=dw;
+			x = Globals.stageW / 2 - width / 2;
+			y = Globals.stageH / 2 - height / 2;
+			Logger.DEBUG("width: " + width);
+		}
+		
+		private function centeredPS():void {
 			
 		}
 		
@@ -79,11 +99,11 @@ package ua.com.syo.socialps.view.stage {
 		public function showWaterMark():void {
 			var wm:WaterMarkView = waterMarkStack[incr];
 			if (wm.isMarker) {
-				wm.x = -markContainer.x + ps.x + Math.random()*1000 - 500;
-				wm.y = -markContainer.y + ps.y + Math.random()*1000 - 500;
+				wm.x = -markContainer.x + ps.x + Math.random()*2000 - 1000;
+				wm.y = -markContainer.y + ps.y + Math.random()*2000 - 1000;
 			} else {
-				wm.x = -markContainer.x + ps.x + Math.random()*10 - 5;
-				wm.y = -markContainer.y + ps.y + Math.random()*10 - 5;
+				wm.x = -markContainer.x + ps.x + Math.random()*20 - 10;
+				wm.y = -markContainer.y + ps.y + Math.random()*20 - 10;
 			}
 			wm.show();
 			incr ++;
@@ -105,7 +125,7 @@ package ua.com.syo.socialps.view.stage {
 			addChild(bgContainer);
 			
 			bgContainer.graphics.beginFill(0x00789F);
-			bgContainer.graphics.drawRect(0,0, Globals.stageW, Globals.stageH);
+			bgContainer.graphics.drawRect(0 , 0, Globals.stageW, Globals.stageH);
 			bgContainer.graphics.endFill();
 			
 			markContainer = new Sprite();
@@ -125,6 +145,41 @@ package ua.com.syo.socialps.view.stage {
 			} else {
 				levelContainer.alpha = 1;
 			}
+			
+			/*Tweener.addTween(bonusContainer, {x:bonusContainer.x - dx, y:bonusContainer.x - dy, time:1, transition:"linear"});
+			Tweener.addTween(levelContainer, {x:levelContainer.x - dx, y:levelContainer.x - dy, time:1, transition:"linear"});
+			Tweener.addTween(markContainer, {x:levelContainer.x - dx, y:levelContainer.x - dy, time:1, transition:"linear"});*/
+			
+			var vp:int = 150;
+			
+			/*if (Math.round(dx) < 2) {
+				x += -x/50;
+			} else {*/
+				//x = x - dx/5 - x/80;
+			//}
+			
+			/*if (Math.round(dy) < 2) {
+				y += -y/50;
+			} else {*/
+				//y = y - dy/5 - y/80;
+			//}
+			
+			/*if (x < -vp) {
+				x = -vp;
+			}
+			if (x > vp) {
+				x = vp;
+			}
+			if (y < -vp) {
+				y = -vp;
+			}
+			if (y > vp) {
+				y = vp;
+			}*/
+			
+			/*levelContainer.x = levelContainer.x - dx/2;
+			levelContainer.y = levelContainer.y - dy/2;*/
+			
 			bonusContainer.x = levelContainer.x = markContainer.x -= dx;
 			bonusContainer.y = levelContainer.y = markContainer.y -= dy;
 		}
