@@ -22,21 +22,19 @@ package ua.com.syo.socialps.view.stage.indicator {
 			container = new LibraryData.IndicatorC();
 			addChild(container);
 			
-			halfW = Globals.stageW / 2;
-			halfH = Globals.stageH / 2;
+			// reinit after resize swf
 			
-			dxTody = Globals.stageW / Globals.stageH;
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
 		private function enterFrameHandler(event:Event):void {
+			halfW = Globals.stageW / 2;
+			halfH = Globals.stageH / 2;
+			
+			dxTody = Globals.stageW / Globals.stageH;
+			
 			var p:Point = targetObj.localToGlobal(new Point(-halfW, -halfH));
-			//var p:Point = localToGlobal(new Point(targetObj.x, targetObj.y));
-			//UIManager.instance.slower.x = p.x + halfW * StageView.instance.scaleX + 30; 
-			//UIManager.instance.slower.y = p.y + halfH * StageView.instance.scaleY; 
-			//trace(p);
-			//var dist:Number = Point.distance(new Point(0, 0), p);
 			var dx:Number = p.x + halfW * StageView.instance.scaleX - halfW;
 			var dy:Number = p.y + halfH * StageView.instance.scaleY - halfH;
 			

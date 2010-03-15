@@ -12,7 +12,6 @@ package ua.com.syo.socialps.view.stage {
 	import ua.com.syo.socialps.data.Globals;
 	import ua.com.syo.socialps.data.LibraryData;
 	import ua.com.syo.socialps.view.stage.indicator.IndicatorView;
-	import ua.kiev.djm.core.log.Logger;
 	
 	public class StageView extends Sprite {
 		
@@ -52,7 +51,7 @@ package ua.com.syo.socialps.view.stage {
 			
 			levelContainer = new LibraryData.TestLevelC();
 			addChild(levelContainer);
-			levelContainer.scaleX = levelContainer.scaleY = 8;
+			levelContainer.scaleX = levelContainer.scaleY = 10;
 			
 			bonusContainer = new Sprite();
 			addChild(bonusContainer);
@@ -76,30 +75,33 @@ package ua.com.syo.socialps.view.stage {
 			}
 			
 			//
-			addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 		}
 		
-		public var zdx:Number;
-		public var zdy:Number; 
-		private function mouseWheelHandler(event:MouseEvent):void {
+		public var toScaleX:Number = 1;
+		public var toScaleY:Number = 1; 
+		public function mouseWheelHandler(event:MouseEvent):void {
 			var dw:Number = Number(event.delta)/100;
 			if (event.delta > 0) {
-				dw = 0.01;
+				dw = 0.1;
 			} else {
-				dw = -0.01;
+				dw = -0.1;
 			}
-			scaleX += dw;
-			scaleY += dw;
+			toScaleX = scaleX + dw;
+			toScaleY = scaleY + dw;
+			/*scaleX += dw;
+			scaleY += dw;*/
 			//x = Globals.stageW / 2 - width / 2;
 			//y = Globals.stageH / 2 - height / 2;
-			var p:Point = localToGlobal(new Point(ps.x, ps.y));
+			/*var p:Point = localToGlobal(new Point(ps.x, ps.y));
 			zdx =  Globals.stageW / 2 - p.x;
 			zdy =  Globals.stageH / 2 - p.y;
 			
 			x += zdx;
 			y += zdy;
 			
-			Logger.DEBUG("width: " + p);
+			Logger.DEBUG("width: " + p);*/
+			
+			//Tweener.addTween(this, {scaleX:scaleX + dw, scaleX:scaleY + dw, time:1, transition:"linear"});
 		}
 		
 		private function centeredPS():void {
@@ -201,6 +203,18 @@ package ua.com.syo.socialps.view.stage {
 			
 			bonusContainer.x = levelContainer.x = markContainer.x -= dx;
 			bonusContainer.y = levelContainer.y = markContainer.y -= dy;
+			
+			scaleX += (toScaleX - scaleX) / 20;
+			scaleY += (toScaleY - scaleY) / 20;
+			
+			//var p:Point = localToGlobal(new Point(ps.x, ps.y));
+			var zdx:Number = Globals.stageW / 2 - p.x;
+			var zdy:Number = Globals.stageH / 2 - p.y;
+			
+			x += zdx;
+			y += zdy;
+				
+			//	toScaleY = toScaleX = Math.abs(p.x) / 100;
 		}
 		
 		

@@ -38,6 +38,7 @@ package {
 			Logger.DEBUG("Globals.stageH: " + Globals.stageH); 
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 			
 		}
@@ -48,6 +49,10 @@ package {
 		
 		private function mouseUpHandler(event:MouseEvent):void {
 			StageView.instance.ps.userMouseUp();
+		}
+		
+		private function mouseWheelHandler(event:MouseEvent):void {
+			StageView.instance.mouseWheelHandler(event);
 		}
 		
 		public function connectTest():void {
