@@ -57,13 +57,13 @@ package ua.com.syo.socialps.view.stage {
 			bonusContainer = new Sprite();
 			addChild(bonusContainer);
 			
-			for (var i:int = 0; i < 1; i++) {
+			for (var i:int = 0; i < 10; i++) {
 				var slower:Sprite = new LibraryData.SlowerC();
 				bonusContainer.addChild(slower);
-				/*slower.x = Math.random()* 200 - 100;
-				slower.y = Math.random()* 200 - 100;*/
-				slower.x = 0;
-				slower.y = 0;
+				slower.x = Math.random()* 2000 - 1000;
+				slower.y = Math.random()* 2000 - 1000;
+				//slower.x = 0;
+				//slower.y = 0;
 				
 				IndicatorView.instance.addIndicator("t"+i, slower);
 			}

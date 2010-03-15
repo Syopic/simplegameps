@@ -35,7 +35,7 @@ package ua.com.syo.socialps.view.stage.indicator {
 			//var p:Point = localToGlobal(new Point(targetObj.x, targetObj.y));
 			//UIManager.instance.slower.x = p.x + halfW * StageView.instance.scaleX + 30; 
 			//UIManager.instance.slower.y = p.y + halfH * StageView.instance.scaleY; 
-			trace(p);
+			//trace(p);
 			//var dist:Number = Point.distance(new Point(0, 0), p);
 			var dx:Number = p.x + halfW * StageView.instance.scaleX - halfW;
 			var dy:Number = p.y + halfH * StageView.instance.scaleY - halfH;
