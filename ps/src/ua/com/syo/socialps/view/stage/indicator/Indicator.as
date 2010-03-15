@@ -5,7 +5,8 @@ package ua.com.syo.socialps.view.stage.indicator {
 	
 	import ua.com.syo.socialps.data.Globals;
 	import ua.com.syo.socialps.data.LibraryData;
-	import ua.kiev.djm.core.log.Logger;
+	import ua.com.syo.socialps.view.UIManager;
+	import ua.com.syo.socialps.view.stage.StageView;
 	
 	public class Indicator extends Sprite {
 		
@@ -31,15 +32,17 @@ package ua.com.syo.socialps.view.stage.indicator {
 		
 		private function enterFrameHandler(event:Event):void {
 			var p:Point = targetObj.localToGlobal(new Point(-halfW, -halfH));
+			//var p:Point = localToGlobal(new Point(targetObj.x, targetObj.y));
+			//UIManager.instance.slower.x = p.x + halfW * StageView.instance.scaleX + 30; 
+			//UIManager.instance.slower.y = p.y + halfH * StageView.instance.scaleY; 
+			trace(p);
+			//var dist:Number = Point.distance(new Point(0, 0), p);
+			var dx:Number = p.x + halfW * StageView.instance.scaleX - halfW;
+			var dy:Number = p.y + halfH * StageView.instance.scaleY - halfH;
 			
-			var dist:Number = Point.distance(new Point(0, 0), p);
-			var dx:Number = p.x;
-			var dy:Number = p.y;
 			
-			
-			
-			var ky:Number = dx / ((dy* dxTody) / halfW);
-			var kx:Number = (dy* dxTody) / (dx / halfH);
+			var ky:Number = dx / ((dy * dxTody) / halfW);
+			var kx:Number = (dy * dxTody) / (dx / halfH);
 			
 			
 			if (Math.abs(dx) < halfW && Math.abs(dy) < halfH) {

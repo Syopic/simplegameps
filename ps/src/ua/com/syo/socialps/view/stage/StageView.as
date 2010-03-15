@@ -57,11 +57,13 @@ package ua.com.syo.socialps.view.stage {
 			bonusContainer = new Sprite();
 			addChild(bonusContainer);
 			
-			for (var i:int = 0; i < 10; i++) {
+			for (var i:int = 0; i < 1; i++) {
 				var slower:Sprite = new LibraryData.SlowerC();
 				bonusContainer.addChild(slower);
-				slower.x = Math.random()* 3000 - 1500;
-				slower.y = Math.random()* 3000 - 1500;
+				/*slower.x = Math.random()* 200 - 100;
+				slower.y = Math.random()* 200 - 100;*/
+				slower.x = 0;
+				slower.y = 0;
 				
 				IndicatorView.instance.addIndicator("t"+i, slower);
 			}
@@ -77,6 +79,8 @@ package ua.com.syo.socialps.view.stage {
 			addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 		}
 		
+		public var zdx:Number;
+		public var zdy:Number; 
 		private function mouseWheelHandler(event:MouseEvent):void {
 			var dw:Number = Number(event.delta)/100;
 			if (event.delta > 0) {
@@ -84,11 +88,18 @@ package ua.com.syo.socialps.view.stage {
 			} else {
 				dw = -0.01;
 			}
-			scaleX+=dw;
-			scaleY+=dw;
-			x = Globals.stageW / 2 - width / 2;
-			y = Globals.stageH / 2 - height / 2;
-			Logger.DEBUG("width: " + width);
+			scaleX += dw;
+			scaleY += dw;
+			//x = Globals.stageW / 2 - width / 2;
+			//y = Globals.stageH / 2 - height / 2;
+			var p:Point = localToGlobal(new Point(ps.x, ps.y));
+			zdx =  Globals.stageW / 2 - p.x;
+			zdy =  Globals.stageH / 2 - p.y;
+			
+			x += zdx;
+			y += zdy;
+			
+			Logger.DEBUG("width: " + p);
 		}
 		
 		private function centeredPS():void {
@@ -150,32 +161,40 @@ package ua.com.syo.socialps.view.stage {
 			Tweener.addTween(levelContainer, {x:levelContainer.x - dx, y:levelContainer.x - dy, time:1, transition:"linear"});
 			Tweener.addTween(markContainer, {x:levelContainer.x - dx, y:levelContainer.x - dy, time:1, transition:"linear"});*/
 			
-			var vp:int = 150;
 			
 			/*if (Math.round(dx) < 2) {
-				x += -x/50;
-			} else {*/
-				//x = x - dx/5 - x/80;
-			//}
+				x += -x/50 / scaleX;
+			} else {
+				x = x - dx/5/ scaleX - x/80/ scaleX;
+			}
 			
-			/*if (Math.round(dy) < 2) {
-				y += -y/50;
-			} else {*/
-				//y = y - dy/5 - y/80;
-			//}
+			if (Math.round(dy) < 2) {
+				y += -y/50/ scaleX;
+			} else {
+				y = y - dy/5/ scaleX - y/80/ scaleX;
+			}
+			*/
+			/*var isMoveX:Boolean = true;
+			var isMoveY:Boolean = true;
+			var vp:int = 200;
+			if (p.x < vp || p.x > Globals.stageW - vp) {
+				isMoveX = false
+			}
+			if (p.y < vp || p.y > Globals.stageH - vp) {
+				isMoveY = false
+			}
 			
-			/*if (x < -vp) {
-				x = -vp;
-			}
-			if (x > vp) {
-				x = vp;
-			}
-			if (y < -vp) {
-				y = -vp;
-			}
-			if (y > vp) {
-				y = vp;
-			}*/
+			if (isMoveX) {
+				x = x - (dx/2) * (scaleX);
+			} else {
+				x = x + (dx/2) * (scaleX);
+			}			
+			if (isMoveY) {
+				y = y - (dy/2) * (scaleY);
+			} else {
+				y = y + (dy/2) * (scaleY);
+			}			*/
+			
 			
 			/*levelContainer.x = levelContainer.x - dx/2;
 			levelContainer.y = levelContainer.y - dy/2;*/

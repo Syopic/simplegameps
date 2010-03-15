@@ -18,7 +18,7 @@ package ua.com.syo.socialps.view.stage {
 		private var isRotation:Boolean = false;
 		private var insideMc:MovieClip;
 		public var speed:Number = 5;
-		public var dS:Number = 0.01;
+		public var dS:Number = 0.00;
 		private var angle:Number = 0;
 		private var dx:Number = 0;
 		private var dy:Number = 0;

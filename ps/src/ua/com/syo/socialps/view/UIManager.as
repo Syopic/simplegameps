@@ -7,6 +7,7 @@
 package ua.com.syo.socialps.view {
 	import flash.display.Sprite;
 	
+	import ua.com.syo.socialps.data.LibraryData;
 	import ua.com.syo.socialps.view.stage.StageView;
 	import ua.com.syo.socialps.view.stage.indicator.IndicatorView;
 	
@@ -24,11 +25,14 @@ package ua.com.syo.socialps.view {
 			return _instance;
 		}
 		
+		public var slower:Sprite;
 		
 		public function init():void {
 			StageView.instance.init();
 			addChild(StageView.instance);
 			addChild(IndicatorView.instance);
+			//slower = new LibraryData.SlowerC();
+			//addChild(slower);
 		}
 		
 	}
