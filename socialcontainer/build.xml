@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>	
+<project name="ArenaLobby" basedir=".">
+	
+	<property file="properties/local.properties" />
+	
+	<property name="bin.dir" value="bin"/>
+	
+	<target name="publish">
+		<ftp server="193.200.64.35"
+		       remotedir="/publish_html/ps"
+		       userid="battleci"
+		       password="btl112#s"
+		       passive="yes"
+			depends="yes"
+
+	    	   binary="no">
+		    <fileset dir="bin">
+		      <include name="**/*.swf"/>
+		    </fileset>
+		  </ftp>
+	</target>
+	
+</project>
