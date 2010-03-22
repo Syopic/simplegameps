@@ -1,3 +1,9 @@
+/**
+ * IndicatorView.as	 	
+ * @author				Krivosheya Sergey
+ * @link    			http://www.syo.com.ua/
+ * @link    			mailto: syopic@gmail.com
+ */
 package ua.com.syo.socialps.view.stage.indicator {
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;

@@ -37,6 +37,7 @@ package ua.com.syo.socialps.view.stage {
 		// containers
 		private var bgContainer:Sprite;
 		private var levelContainer:Sprite;
+		private var psContainer:Sprite;
 		private var bonusContainer:Sprite;
 		private var objectsContainer:Sprite;
 		private var markContainer:Sprite;
@@ -44,7 +45,7 @@ package ua.com.syo.socialps.view.stage {
 		// stack for looping
 		private var waterMarkStack:Array;
 		
-		private var toScale:Number = 1;
+		private var toScale:Number = 0.5;
 		private var markIncr:int = 0;
 		
 		/**
@@ -53,23 +54,7 @@ package ua.com.syo.socialps.view.stage {
 		public function init():void {
 			initBG();
 			initMarkers();
-			///////////
-			
-			psArray = new Array();
-			
-			mainPS = initPS(Globals.stageW / 2, Globals.stageH / 2);
-			mainPS.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-			
-			psArray.push(mainPS);
-			
-			for (var i:int = 0; i < 10; i++) {
-				var tps:PondSkaterView = initPS(Math.random()*2000, Math.random()*2000);
-				tps.speed = Math.random()*20;
-				tps.alpha = 0.5;
-				psArray.push(tps);
-			}
-			
-			//////////////
+			initPS();
 			initLevel();
 			initBonuses();
 		}
@@ -100,38 +85,6 @@ package ua.com.syo.socialps.view.stage {
 			}
 		}
 		
-		private function enterFrameHandler(event:Event):void {
-			for (var i:int = 0; i < psArray.length; i++) {
-				var tps:PondSkaterView = psArray[i] as PondSkaterView;
-				tps.move();
-				StageView.instance.showWaterMark(tps);
-				
-				if (mainPS == tps) {
-					
-					var p:Point = localToGlobal(new Point(tps.x, tps.y));
-					if (levelContainer["collision"].hitTestPoint(p.x, p.y, true)) {
-						levelContainer.alpha = 0.3;
-					} else {
-						levelContainer.alpha = 1;
-					}
-					
-					bonusContainer.x = levelContainer.x = markContainer.x -= tps.dx;
-					bonusContainer.y = levelContainer.y = markContainer.y -= tps.dy;
-					
-					scaleY = scaleX += (toScale - scaleX) / 20;
-					
-					x += Globals.stageW / 2 - p.x;
-					y += Globals.stageH / 2 - p.y;
-				} else {
-					tps.x += tps.dx;
-					tps.y += tps.dy;
-					
-					tps.x -= mainPS.dx;
-					tps.y -= mainPS.dy;
-					
-				}
-			}
-		}
 		
 		/**
 		 * init background
@@ -161,15 +114,27 @@ package ua.com.syo.socialps.view.stage {
 		}
 		
 		/**
-		 * init pond skater
-		 * @param xPos, yPos - position on view port
+		 * init pond skaters
 		 */
-		private function initPS(xPos:int, yPos:int):PondSkaterView {
-			var tps:PondSkaterView = new PondSkaterView();
-			addChild(tps);
-			tps.x = xPos;
-			tps.y = yPos;
-			return tps;
+		private function initPS():void {
+			psContainer = new Sprite();
+			addChild(psContainer);
+			
+			psArray = new Array();
+			
+			mainPS = new PondSkaterView(Globals.stageW / 2, Globals.stageH / 2);
+			psContainer.addChild(mainPS);
+			mainPS.addEventListener(Event.ENTER_FRAME, moveController);
+			
+			psArray.push(mainPS);
+			
+			for (var i:int = 0; i < 10; i++) {
+				var tps:PondSkaterView = new PondSkaterView(Math.random()*2000, Math.random()*2000);
+				tps.speed = Math.random()*30;
+				psContainer.addChild(tps);
+				tps.alpha = 0.5;
+				psArray.push(tps);
+			}
 		}
 		
 		/**
@@ -196,6 +161,40 @@ package ua.com.syo.socialps.view.stage {
 				slower.y = Math.random()* 2000 - 1000;
 				
 				IndicatorView.instance.addIndicator("t"+i, slower);
+			}
+		}
+		
+		/**
+		 * event from main stage
+		 */
+		private function moveController(event:Event):void {
+			for (var i:int = 0; i < psArray.length; i++) {
+				var tps:PondSkaterView = psArray[i] as PondSkaterView;
+				tps.move();
+				
+				if (mainPS == tps) {
+					StageView.instance.showWaterMark(tps);
+					
+					var p:Point = localToGlobal(new Point(tps.x, tps.y));
+					if (levelContainer["collision"].hitTestPoint(p.x, p.y, true)) {
+						levelContainer.alpha = 0.3;
+					} else {
+						levelContainer.alpha = 1;
+					}
+					
+					bonusContainer.x = levelContainer.x = markContainer.x -= tps.dx;
+					bonusContainer.y = levelContainer.y = markContainer.y -= tps.dy;
+					
+					scaleY = scaleX += (toScale - scaleX) / 20;
+					
+					x += Globals.stageW / 2 - p.x;
+					y += Globals.stageH / 2 - p.y;
+					
+					//toScale = 1 - mainPS.speed / 100;
+				} else {
+					tps.x += tps.dx - mainPS.dx;
+					tps.y += tps.dy - mainPS.dy;
+				}
 			}
 		}
 		

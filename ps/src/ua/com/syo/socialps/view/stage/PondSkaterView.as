@@ -17,7 +17,7 @@ package ua.com.syo.socialps.view.stage {
 		
 		public var isRotation:Boolean = true;
 		public var speed:Number = 5;
-		public var dS:Number = 0.01;
+		public var dS:Number = 0.05;
 		public var angle:Number = 0;
 		
 		private var insideMc:MovieClip;
@@ -28,7 +28,9 @@ package ua.com.syo.socialps.view.stage {
 		
 		private var angleInertion:Number = 0;
 		
-		public function PondSkaterView() {
+		public function PondSkaterView(xPos:int, yPos:int) {
+			x = xPos;
+			y = yPos;
 			var ps:Sprite = new LibraryData.PondSkaterC();
 			addChild(ps);
 			insideMc = ps["insidePS"];

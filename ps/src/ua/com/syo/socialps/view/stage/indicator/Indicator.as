@@ -1,3 +1,9 @@
+/**
+ * Indicator.as	 	
+ * @author				Krivosheya Sergey
+ * @link    			http://www.syo.com.ua/
+ * @link    			mailto: syopic@gmail.com
+ */
 package ua.com.syo.socialps.view.stage.indicator {
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -21,14 +27,11 @@ package ua.com.syo.socialps.view.stage.indicator {
 			targetObj = target;
 			container = new LibraryData.IndicatorC();
 			addChild(container);
-			
-			// reinit after resize swf
-			
-			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
 		private function enterFrameHandler(event:Event):void {
+			// TODO
 			halfW = Globals.stageW / 2;
 			halfH = Globals.stageH / 2;
 			

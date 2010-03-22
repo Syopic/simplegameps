@@ -1,3 +1,9 @@
+/**
+ * WaterMarkView.as	 	
+ * @author				Krivosheya Sergey
+ * @link    			http://www.syo.com.ua/
+ * @link    			mailto: syopic@gmail.com
+ */
 package ua.com.syo.socialps.view.stage {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
