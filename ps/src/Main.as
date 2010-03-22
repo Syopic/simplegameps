@@ -1,3 +1,9 @@
+/**
+ * Main.as					main entry class
+ * @author					Krivosheya Sergey
+ * @link    				http://www.syo.com.ua/
+ * @link    				mailto: syopic@gmail.com
+ */
 package {
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -14,13 +20,17 @@ package {
 	
 	public class Main extends Sprite {
 		
+		/**
+		 * constructor
+		 */
 		public function Main() {
+			// wait for initialisation
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		/**
-		 * Entry Point
+		 * entry point
 		 */
 		private function init(event:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -28,14 +38,13 @@ package {
 			Globals.stageW = stage.stageWidth;
 			Globals.stageH = stage.stageHeight;
 			
-			
+			// init controller and view
 			Controller.instance.init();
 			addChild(UIManager.instance);
+			
+			// init log panel
 			var logPanel:LogPanel = new LogPanel(this, false);
 			Logger.setTarget(logPanel);
-			
-			Logger.DEBUG("Globals.stageW: " + Globals.stageW); 
-			Logger.DEBUG("Globals.stageH: " + Globals.stageH); 
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
@@ -44,11 +53,11 @@ package {
 		}
 		
 		private function mouseDownHandler(event:MouseEvent):void {
-			StageView.instance.ps.userMouseDown();
+			StageView.instance.userMouseDown();
 		}
 		
 		private function mouseUpHandler(event:MouseEvent):void {
-			StageView.instance.ps.userMouseUp();
+			StageView.instance.userMouseUp();
 		}
 		
 		private function mouseWheelHandler(event:MouseEvent):void {

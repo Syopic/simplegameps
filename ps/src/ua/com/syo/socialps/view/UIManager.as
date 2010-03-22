@@ -24,15 +24,11 @@ package ua.com.syo.socialps.view {
 			}
 			return _instance;
 		}
-		
-		public var slower:Sprite;
-		
+
 		public function init():void {
 			StageView.instance.init();
 			addChild(StageView.instance);
 			addChild(IndicatorView.instance);
-			//slower = new LibraryData.SlowerC();
-			//addChild(slower);
 		}
 		
 	}
