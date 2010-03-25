@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Border xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo" width="680" height="100" xmlns:friendsPanel="ua.com.syo.simplegame.view.components.friendsPanel.*" backgroundColor="#FFFFFF" backgroundAlpha="1.0">
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="680" height="100" xmlns:friendsPanel="ua.com.syo.simplegame.view.components.friendsPanel.*" >
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -54,7 +54,7 @@
 		]]>
 	</fx:Script>
 	
-	<s:Button x="5" y="61" label="&lt;" height="30" width="30" textAlign="left" click="prewPageHandler(event)"/>
+	<s:Button x="5" y="61" label="&lt;" height="30" width="30" click="prewPageHandler(event)"/>
 	<s:Button x="39" y="61" label="&gt;" height="30" width="30" click="nextPageHandler(event)"/>
 	<friendsPanel:FriendItem x="77" y="5" id="i1">
 	</friendsPanel:FriendItem>
@@ -72,4 +72,4 @@
 	</friendsPanel:FriendItem>
 	<friendsPanel:FriendItem x="602" y="5" id="i8">
 	</friendsPanel:FriendItem>
-</s:Border>
+</s:Group>

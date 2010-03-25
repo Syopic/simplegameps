@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   creationComplete="init();"
 			   frameRate="41"
-			   xmlns:mx="library://ns.adobe.com/flex/halo" width="730" height="730" xmlns:friendsPanel="ua.com.syo.simplegame.view.components.friendsPanel.*" xmlns:targets="ua.kiev.djm.core.log.targets.*" currentState="expand">
+			   xmlns:mx="library://ns.adobe.com/flex/halo" width="730" height="730" xmlns:friendsPanel="ua.com.syo.simplegame.view.components.friendsPanel.*" xmlns:targets="ua.kiev.djm.core.log.targets.*" currentState="expand" xmlns:mx1="library://ns.adobe.com/flex/mx">
 	
 	<fx:Script>
 		<![CDATA[
@@ -28,22 +28,22 @@
 		<s:State name="collapse"/>
 	</s:states>
 	
-	<s:Border width="100%" height="100%">
-		<mx:SWFLoader id="gameLoader" width="100%" height="100%"  source="Main.swf" complete="loadCompleteHandler(event)"/>
+	<s:Group width="100%" height="100%">
+		<mx1:SWFLoader id="gameLoader" width="100%" height="100%"  source="Main.swf" complete="loadCompleteHandler(event)"/>
 		<friendsPanel:FriendsPanel id="friendPanel" x="4" bottom="4" x.collapse="4" bottom.collapse="-120"/>
 		<s:Button id="hideButton" label="v" height="30" width="30" click="{movePS(); if (currentState != 'collapse') {currentState = 'collapse'; hideButton.label = '^'} else {currentState = 'expand'; hideButton.label = 'v' }}"  x="693" y="693"/>
-	</s:Border>
+	</s:Group>
 	
 	<targets:FlexLogPanel />
 	<s:transitions>
 		<s:Transition id="myTransition" fromState="expand" toState="collapse">
 			<s:Parallel id="t1" targets="{[friendPanel]}">
-				<mx:Move  duration="200"/>
+				<mx1:Move  duration="200"/>
 			</s:Parallel>
 		</s:Transition>
 		<s:Transition id="myTransition1" fromState="collapse" toState="expand">
 			<s:Parallel id="t2" targets="{[friendPanel]}">
-				<mx:Move  duration="200"/>
+				<mx1:Move  duration="200"/>
 			</s:Parallel>
 		</s:Transition>
 	</s:transitions>
