@@ -16,6 +16,7 @@ package ua.com.syo.socialps.view.stage {
 	public class PondSkaterView extends Sprite {
 		
 		public var isRotation:Boolean = true;
+		public var beginSpeed:Number = 5;
 		public var speed:Number = 5;
 		public var dS:Number = 0.05;
 		public var angle:Number = 0;
@@ -29,14 +30,19 @@ package ua.com.syo.socialps.view.stage {
 		private var angleInertion:Number = 0;
 		
 		public function PondSkaterView(xPos:int, yPos:int) {
-			x = xPos;
-			y = yPos;
+			init(xPos, yPos);
 			var ps:Sprite = new LibraryData.PondSkaterC();
 			addChild(ps);
 			insideMc = ps["insidePS"];
 			insideMc.gotoAndStop("static");
 			ps.scaleY = Globals.isoScale;
 			angle = insideMc.rotation;	
+		}
+		
+		public function init(xPos:int, yPos:int):void {
+			x = xPos;
+			y = yPos;
+			speed = beginSpeed;
 		}
 		
 		public function mouseDownReaction():void {
@@ -59,15 +65,18 @@ package ua.com.syo.socialps.view.stage {
 					insideMc.rotation = angle;
 				}
 			}
-			
 			if (insideMc.currentFrameLabel == "turn") {
 				insideMc.gotoAndStop("static");
-			} 
+			}
 			speed += dS;
 			
 			dx = speed * Math.sin(Math.PI / 180 * angle);
 			dy = speed * (-Math.cos(Math.PI / 180 * angle)) * (Globals.isoScale);
 			
+		}
+		
+		public function slow():void {
+			speed = speed / 2;
 		}
 	}
 }

@@ -17,7 +17,7 @@ package ua.com.syo.socialps.view.stage {
 		public var isMarker:Boolean;
 		
 		public function WaterMarkView()	{
-			if (Math.random()*10 > 5) {
+			if (Math.random()*10 > 3) {
 				ww = new LibraryData.WaterWaveC();
 			} else {
 				isMarker = true;

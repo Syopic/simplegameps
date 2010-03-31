@@ -30,5 +30,13 @@ package ua.com.syo.socialps.view.stage.indicator {
 			indicatorsDict[id] = ind;
 			addChild(ind);
 		}
+		
+		public function removeIndicator(id:String):void {
+			var ind:Indicator = indicatorsDict[id];
+			removeChild(ind);
+			delete indicatorsDict[id];
+			ind = null;
+			
+		}
 	}
 }

@@ -24,6 +24,12 @@ package ua.com.syo.socialps.data{
 		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "Slower")]
 		public static var SlowerC:Class;
+		
+		
+		// gui
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "ScoreBar")]
+		public static var ScoreBarC:Class;
 
 	}
 }

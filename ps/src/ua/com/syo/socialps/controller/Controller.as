@@ -23,6 +23,8 @@ package ua.com.syo.socialps.controller {
 			return _instance;
 		}
 		
+		public var isRunning:Boolean = false;
+		
 		/**
 		 * init
 		 */
