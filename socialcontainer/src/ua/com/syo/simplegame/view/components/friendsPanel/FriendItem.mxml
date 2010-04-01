@@ -58,12 +58,14 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Group id="avMask" x="6" y="6" width="55" height="55"  includeIn="start"/>
-	<s:Group x="6" y="6" width="55" height="55" mask="{avMask}" includeIn="start"  >
-		<mx1:Image id="avatarImg" source="{avatarImgPath}" complete="loadAvatarHandler(event)" trustContent="true" loaderContext="{new LoaderContext(true)}"/>
-	</s:Group>
-	<s:Label x="-1" y="70" text="{userId}" width="71" textAlign="center" includeIn="start"/>
-	<s:Group x="19" y="46" width="30" height="20" textAlign="center"   includeIn="start">
-		<s:Label text="{place}" width="29" textAlign="center" x="-1" y="4"/>
-	</s:Group>
+	<s:BorderContainer width="70" height="87" cornerRadius="10">
+		<s:BorderContainer id="avMask" x="6" y="6" width="55" height="55"  includeIn="start"/>
+		<s:BorderContainer x="6" y="6" width="55" height="55" mask="{avMask}" includeIn="start"  >
+			<mx1:Image id="avatarImg" source="{avatarImgPath}" complete="loadAvatarHandler(event)" trustContent="true" loaderContext="{new LoaderContext(true)}"/>
+		</s:BorderContainer>
+		<s:Label x="-1" y="70" text="{userId}" width="71" textAlign="center" includeIn="start"/>
+		<s:BorderContainer x="19" y="46" width="30" height="20" textAlign="center"   includeIn="start">
+			<s:Label text="{place}" width="29" textAlign="center" x="-1" y="4"/>
+		</s:BorderContainer>
+	</s:BorderContainer>
 </s:Group>

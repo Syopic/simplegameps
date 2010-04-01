@@ -53,23 +53,25 @@
 			
 		]]>
 	</fx:Script>
-	
-	<s:Button x="5" y="61" label="&lt;" height="30" width="30" click="prewPageHandler(event)"/>
-	<s:Button x="39" y="61" label="&gt;" height="30" width="30" click="nextPageHandler(event)"/>
-	<friendsPanel:FriendItem x="77" y="5" id="i1">
-	</friendsPanel:FriendItem>
-	<friendsPanel:FriendItem x="152" y="5" id="i2">
-	</friendsPanel:FriendItem>
-	<friendsPanel:FriendItem x="227" y="5" id="i3">
-	</friendsPanel:FriendItem>
-	<friendsPanel:FriendItem x="302" y="5" id="i4">
-	</friendsPanel:FriendItem>
-	<friendsPanel:FriendItem x="377" y="5" id="i5">
-	</friendsPanel:FriendItem>
-	<friendsPanel:FriendItem x="452" y="5" id="i6">
-	</friendsPanel:FriendItem>
-	<friendsPanel:FriendItem x="527" y="5" id="i7">
-	</friendsPanel:FriendItem>
-	<friendsPanel:FriendItem x="602" y="5" id="i8">
-	</friendsPanel:FriendItem>
+	<s:BorderContainer width="680" height="100" cornerRadius="10">
+		
+		<s:Button x="5" y="61" label="&lt;" height="30" width="30" click="prewPageHandler(event)"/>
+		<s:Button x="39" y="61" label="&gt;" height="30" width="30" click="nextPageHandler(event)"/>
+		<friendsPanel:FriendItem x="77" y="5" id="i1">
+		</friendsPanel:FriendItem>
+		<friendsPanel:FriendItem x="152" y="5" id="i2">
+		</friendsPanel:FriendItem>
+		<friendsPanel:FriendItem x="227" y="5" id="i3">
+		</friendsPanel:FriendItem>
+		<friendsPanel:FriendItem x="302" y="5" id="i4">
+		</friendsPanel:FriendItem>
+		<friendsPanel:FriendItem x="377" y="5" id="i5">
+		</friendsPanel:FriendItem>
+		<friendsPanel:FriendItem x="452" y="5" id="i6">
+		</friendsPanel:FriendItem>
+		<friendsPanel:FriendItem x="527" y="5" id="i7">
+		</friendsPanel:FriendItem>
+		<friendsPanel:FriendItem x="602" y="5" id="i8">
+		</friendsPanel:FriendItem>
+	</s:BorderContainer>
 </s:Group>
