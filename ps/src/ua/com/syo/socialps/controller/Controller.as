@@ -32,5 +32,8 @@ package ua.com.syo.socialps.controller {
 			UIManager.instance.init();
 		}
 		
+		public function runGame():void {
+		}
+		
 	}
 }

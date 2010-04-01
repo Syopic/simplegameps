@@ -65,7 +65,7 @@ package {
 		}
 		
 		public function connectTest():void {
-			StageView.instance.movePS();
+			Controller.instance.runGame();
 		}
 	}
 }

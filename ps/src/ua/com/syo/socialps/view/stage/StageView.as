@@ -109,9 +109,9 @@ package ua.com.syo.socialps.view.stage {
 			bgContainer = new Sprite();
 			addChild(bgContainer);
 			// draw bg color rectangle
-			bgContainer.graphics.beginFill(0x00789F);
+			/*bgContainer.graphics.beginFill(0x00789F);
 			bgContainer.graphics.drawRect(0, 0, Globals.stageW, Globals.stageH);
-			bgContainer.graphics.endFill();
+			bgContainer.graphics.endFill();*/
 		}
 
 		/**
