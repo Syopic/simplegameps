@@ -51,7 +51,11 @@ package ua.com.syo.socialps.view.stage {
 		
 		public function move():void {
 			if (isRotation) {
-				angle -= dAngle;
+				if (mouseX > 0) {
+					angle += dAngle;
+				} else {
+					angle -= dAngle;
+				}
 				insideMc.rotation = angle;
 				angleInertion = dAngle;
 				if (dAngle < 4) {
@@ -61,7 +65,11 @@ package ua.com.syo.socialps.view.stage {
 				dAngle = 1;
 				angleInertion -= 0.3;
 				if (angleInertion > 0) { 
-					angle -= angleInertion;
+					if (mouseX > 0) {
+						angle += angleInertion;
+					} else {
+						angle -= angleInertion;
+					}
 					insideMc.rotation = angle;
 				}
 			}
