@@ -8,6 +8,8 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
+			
 			import ua.com.syo.simplegame.model.Model;
 			private var externalSwf:Object;
 			
@@ -27,7 +29,7 @@
 			}
 			
 			public function innerCall(scoreNum:int):void {
-				startButton.label = scoreNum.toString();
+				Alert.show("result: " + scoreNum, "Game result");
 			}
 		]]>
 	</fx:Script>
@@ -40,7 +42,7 @@
 		<mx1:SWFLoader id="gameLoader" width="100%" height="100%"  source="D:\_work\SocialFramework\SocialPS\bin\Main.swf" complete="loadCompleteHandler(event)"/>
 		<friendsPanel:FriendsPanel id="friendPanel" x="4" bottom="4" x.collapse="4" bottom.collapse="-120"/>
 		<s:Button id="hideButton" label="v" height="30" width="30" click="{if (currentState != 'collapse') {currentState = 'collapse'; hideButton.label = '^'} else {currentState = 'expand'; hideButton.label = 'v' }}"  x="693" y="693"/>
-		<s:Button id="startButton" label="Start" height="30"  click="movePS();" x="503" y="523" width="66"/>
+		<s:Button id="startButton" label="Start" height="30"  click="movePS();" x="503" y="523" width="66" x.expand="10" y.expand="588" width.expand="82" label.expand="New game"/>
 	</s:Group>
 	
 	<targets:FlexLogPanel />
