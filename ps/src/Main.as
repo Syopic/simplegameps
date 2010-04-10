@@ -5,12 +5,18 @@
  * @link    				mailto: syopic@gmail.com
  */
 package {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import mx.core.Application;
+	import mx.core.FlexLoader;
+	import mx.managers.SystemManager;
+	
 	import ua.com.syo.socialps.controller.Controller;
 	import ua.com.syo.socialps.data.Globals;
+	import ua.com.syo.socialps.model.Model;
 	import ua.com.syo.socialps.view.UIManager;
 	import ua.com.syo.socialps.view.stage.StageView;
 	import ua.kiev.djm.core.log.Logger;
@@ -42,6 +48,8 @@ package {
 			Controller.instance.init();
 			addChild(UIManager.instance);
 			
+			Controller.instance.addEventListener(Event.COMPLETE, completeHandler);
+			
 			// init log panel
 			var logPanel:LogPanel = new LogPanel(this, false);
 			Logger.setTarget(logPanel);
@@ -66,6 +74,10 @@ package {
 		
 		public function connectTest():void {
 			Controller.instance.runGame();
+		}
+		
+		public function completeHandler(event:Event):void {
+			(((this.parent as FlexLoader).root as SystemManager).application as Object).innerCall(Model.instance.score + 1);
 		}
 	}
 }

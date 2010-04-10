@@ -5,9 +5,11 @@
  * @link    				mailto: syopic@gmail.com
  */
 package ua.com.syo.socialps.controller {
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
 	import ua.com.syo.socialps.view.UIManager;
+	import ua.com.syo.socialps.view.stage.StageView;
 	
 	public class Controller extends EventDispatcher	{
 		/**
@@ -33,6 +35,11 @@ package ua.com.syo.socialps.controller {
 		}
 		
 		public function runGame():void {
+			StageView.instance.run();
+		}
+		
+		public function endGameCall():void {
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 	}

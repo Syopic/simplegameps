@@ -32,10 +32,15 @@ package ua.com.syo.socialps.view.stage.indicator {
 		}
 		
 		public function removeIndicator(id:String):void {
-			var ind:Indicator = indicatorsDict[id];
-			removeChild(ind);
-			delete indicatorsDict[id];
-			ind = null;
+			if (indicatorsDict[id]) {
+				var ind:Indicator = indicatorsDict[id];
+				removeChild(ind);
+				delete indicatorsDict[id];
+				ind = null;
+			}
+		}
+		
+		public function removeAll():void {
 			
 		}
 	}

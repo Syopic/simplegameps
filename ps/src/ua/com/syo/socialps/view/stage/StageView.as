@@ -66,13 +66,14 @@ package ua.com.syo.socialps.view.stage {
 		}
 		
 		public function run():void {
-			Controller.instance.isRunning = true;
+			initBonuses();
 			scaleX = scaleY = defaultScale;
 			Model.instance.score = 0;
 			markContainer.x = bonusContainer.x = psContainer.x = levelContainer.x = bgContainer.x = 0;
 			markContainer.y = bonusContainer.y = psContainer.y = levelContainer.y = bgContainer.y = 0;
 			mainPS.init(Globals.stageW / 2, Globals.stageH / 2);
 			toScale = 0.5;
+			Controller.instance.isRunning = true;
 		}
 		
 		public function correctEnding():void {
@@ -171,8 +172,19 @@ package ua.com.syo.socialps.view.stage {
 		 * init bonus container
 		 */
 		private function initBonuses():void {
-			bonusContainer = new Sprite();
-			addChild(bonusContainer);
+			if (bonusContainer && this.contains(bonusContainer)) {
+				for (var j:int = 0; j < bonusStack.length; j++) {
+					var element:Bonus = bonusStack[j] as Bonus;
+					element.destroy();
+					
+				}
+				/*while (bonusContainer.getChildAt(0)) {
+					bonusContainer.removeChildAt(0);
+				}*/
+			} else {
+				bonusContainer = new Sprite();
+				addChild(bonusContainer);
+			}
 			
 			bonusStack = new Array();
 			
