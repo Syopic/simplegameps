@@ -33,7 +33,7 @@ package ua.com.syo.socialps.view.stage {
 		}
 
 		// unit view
-		public var mainPS:PondSkaterView;
+		public var mainPS:SkaterView;
 
 		public var psArray:Array;
 
@@ -50,6 +50,7 @@ package ua.com.syo.socialps.view.stage {
 		[ArrayElementType("Bonus")]
 		private var bonusStack:Array;
 
+		private var defaultScale:Number = 1;
 		private var toScale:Number = 0.5;
 		private var markIncr:int = 0;
 
@@ -64,21 +65,25 @@ package ua.com.syo.socialps.view.stage {
 			initLevel();
 		}
 		
-		public function reInit():void {
+		public function run():void {
+			Controller.instance.isRunning = true;
+			scaleX = scaleY = defaultScale;
+			Model.instance.score = 0;
 			markContainer.x = bonusContainer.x = psContainer.x = levelContainer.x = bgContainer.x = 0;
 			markContainer.y = bonusContainer.y = psContainer.y = levelContainer.y = bgContainer.y = 0;
+			mainPS.init(Globals.stageW / 2, Globals.stageH / 2);
+			toScale = 0.5;
+		}
+		
+		public function correctEnding():void {
+			Controller.instance.isRunning = false;
+			Controller.instance.endGameCall();
 		}
 
 		/**
 		 * mouse down event from main stage
 		 */
 		public function userMouseDown():void {
-			if (!Controller.instance.isRunning) {
-				Controller.instance.isRunning = true;
-				mainPS.init(Globals.stageW / 2, Globals.stageH / 2);
-				Model.instance.score = 0;
-				reInit();
-			}
 			mainPS.isRotation = true;
 			mainPS.mouseDownReaction();
 		}
@@ -138,9 +143,9 @@ package ua.com.syo.socialps.view.stage {
 
 			psArray = new Array();
 
-			mainPS = new PondSkaterView(Globals.stageW / 2, Globals.stageH / 2);
-			psContainer.addChild(mainPS);
+			mainPS = new SkaterView(Globals.stageW / 2, Globals.stageH / 2);
 			mainPS.addEventListener(Event.ENTER_FRAME, moveController);
+			psContainer.addChild(mainPS);
 
 			psArray.push(mainPS);
 
@@ -187,7 +192,7 @@ package ua.com.syo.socialps.view.stage {
 		private function moveController(event:Event):void {
 			if (Controller.instance.isRunning) {
 				for (var i:int = 0; i < psArray.length; i++) {
-					var tps:PondSkaterView = psArray[i] as PondSkaterView;
+					var tps:SkaterView = psArray[i] as SkaterView;
 					tps.move();
 
 					if (mainPS == tps) {
@@ -201,9 +206,7 @@ package ua.com.syo.socialps.view.stage {
 						// hit test
 						var p:Point = localToGlobal(new Point(tps.x, tps.y));
 						if (levelContainer["collision"].hitTestPoint(p.x, p.y, true)) {
-							Controller.instance.isRunning = false;
-						} else {
-							levelContainer.alpha = 1;
+							correctEnding();
 						}
 						
 						for (var j:int = 0; j < bonusStack.length; j++) {
@@ -237,7 +240,7 @@ package ua.com.syo.socialps.view.stage {
 		/**
 		 * showWaterMark
 		 */
-		private function showWaterMark(psInst:PondSkaterView):void {
+		private function showWaterMark(psInst:SkaterView):void {
 			// stack looping
 			var wm:WaterMarkView = waterMarkStack[markIncr];
 			if (wm.isMarker) {
