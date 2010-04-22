@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="680" height="100" xmlns:friendsPanel="ua.com.syo.simplegame.view.components.friendsPanel.*" xmlns:mx1="library://ns.adobe.com/flex/mx" xmlns:base="ua.com.syo.simplegame.view.components.base.*" >
+	<fx:Script>
+		<![CDATA[
+			import ua.com.syo.simplegame.model.UserData;
+			
+			[Bindable]
+			private var avatarImgPath:String = "D:/_work/SocialFramework/SimpleGame/assets/img/avatar.jpg";
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:BorderContainer width="200" height="100" cornerRadius="10">
+		<s:BorderContainer x="6" y="6" width="55" height="55" cornerRadius="3">
+			<base:CropImage sourceLink="{avatarImgPath}" x="1" y="1" width="51" height="51" roundRectRadius="3"/>
+		</s:BorderContainer>
+		<s:Label x="68" y="10" text="{UserData.instance.name}" width="120"/>
+		<s:Label x="68" y="40" text="Score: {UserData.instance.score}" width="120"/>
+	</s:BorderContainer>
+</s:Group>

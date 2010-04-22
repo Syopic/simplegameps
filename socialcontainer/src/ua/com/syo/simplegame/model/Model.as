@@ -2,10 +2,15 @@ package ua.com.syo.simplegame.model {
 	
 	import flash.events.EventDispatcher;
 	
+	import ru.vkontakte.VKApi;
+	
 	import ua.com.syo.simplegame.model.net.CommandParser;
 	import ua.com.syo.simplegame.model.net.TestServer;
+	import ua.com.syo.simplegame.model.net.social.VKData;
+	import ua.kiev.djm.core.log.Logger;
 	import ua.kiev.djm.core.net.ServerProxy;
 	import ua.kiev.djm.core.net.connections.ConnectionAttributes;
+	import ua.kiev.djm.core.net.connections.HTTPConnection;
 	import ua.kiev.djm.core.net.connections.ServerMockConnection;
 	import ua.kiev.djm.core.net.connections.events.CommunicateEvent;
 	
@@ -18,6 +23,8 @@ package ua.com.syo.simplegame.model {
 			return _instance;
 		}
 		
+		
+		
 		public function init():void {
 			connect();
 		}
@@ -25,15 +32,24 @@ package ua.com.syo.simplegame.model {
 		private function connect():void {
 			var ca:ConnectionAttributes = new ConnectionAttributes()
 			ca.setParser(CommandParser.instance);
-			var connection:ServerMockConnection = new ServerMockConnection("mock", ca);
+			var connection:ServerMockConnection = new ServerMockConnection("main", ca);
 			connection.serverMock = new TestServer();
 			
 			connection.addEventListener(CommunicateEvent.CONNECT, connectHandler);
 			ServerProxy.instance.addConnection(connection);
+			
+			/*var ca:ConnectionAttributes = new ConnectionAttributes("http://89.252.12.14:2080/go.php");
+			ca.setParser(CommandParser.instance);
+			var connection:HTTPConnection = new HTTPConnection("main", ca);
+			
+			connection.addEventListener(CommunicateEvent.CONNECT, connectHandler);
+			ServerProxy.instance.addConnection(connection);*/
 		}
 		
 		private function connectHandler(event:CommunicateEvent):void {
-			ServerProxy.instance.sendCommand("test", "mock");
+			CommandSeneder.send("join");
 		}
+		
+		
 	}
 }

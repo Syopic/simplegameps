@@ -16,9 +16,11 @@
 			private var pagesNum:int = 0;
 			
 			public function setData(jsonObj:*):void {
-				friendArr = jsonObj;
-				pagesNum = int(friendArr.length / itemsNum) + 1;
-				showPage(0);
+				if (jsonObj) {
+					friendArr = jsonObj;
+					pagesNum = int(friendArr.length / itemsNum) + 1;
+					showPage(0);
+				}
 			}
 			
 			private function showPage(pageN:int):void {

@@ -2,7 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  toolTip="{userName}"
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="70" height="87" textAlign="center" currentState="start" xmlns:mx1="library://ns.adobe.com/flex/mx">
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="70" height="87" textAlign="center" currentState="start" xmlns:mx1="library://ns.adobe.com/flex/mx" xmlns:base="ua.com.syo.simplegame.view.components.base.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -26,7 +26,7 @@
 				userId = jsonObj.uid;
 			}
 			
-			private function loadAvatarHandler(event:Event):void {
+			/* private function loadAvatarHandler(event:Event):void {
 				var scaleValue:Number = 1;
 				if (avatarImg.content.width > avatarImg.content.height) {
 					scaleValue = 55 / avatarImg.content.width;
@@ -41,7 +41,7 @@
 				} else {
 					avatarImg.content.x = (55 - avatarImg.content.width) / 2;
 				}
-			}
+			} */
 			
 			public function clear():void {
 				currentState = "empty";
@@ -58,10 +58,9 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:BorderContainer width="70" height="87" cornerRadius="10">
-		<s:BorderContainer id="avMask" x="6" y="6" width="55" height="55"  includeIn="start"/>
-		<s:BorderContainer x="6" y="6" width="55" height="55" mask="{avMask}" includeIn="start"  >
-			<mx1:Image id="avatarImg" source="{avatarImgPath}" complete="loadAvatarHandler(event)" trustContent="true" loaderContext="{new LoaderContext(true)}"/>
+	<s:BorderContainer width="70" height="87" cornerRadius="8">
+		<s:BorderContainer x="6" y="6" width="55" height="55" includeIn="start"  cornerRadius="3">
+			<base:CropImage sourceLink="{avatarImgPath}" x="1" y="1" width="51" height="51" roundRectRadius="3"/>
 		</s:BorderContainer>
 		<s:Label x="-1" y="70" text="{userId}" width="71" textAlign="center" includeIn="start"/>
 		<s:BorderContainer x="19" y="46" width="30" height="20" textAlign="center"   includeIn="start">

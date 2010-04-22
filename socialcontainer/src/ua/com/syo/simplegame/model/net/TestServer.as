@@ -15,8 +15,14 @@ package ua.com.syo.simplegame.model.net {
 			super();
 		}
 		
-		override public function getRequest(command:String):void {
-			sendResponse('{"response":[{"uid":"1","first_name":"Павел","last_name":"Дуров","photo":"http:\/\/cs109.vkontakte.ru\/u00001\/c_df2abf56.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"}]}');
+		override public function getRequest(command:Object):void {
+			switch (command.cmd) {
+				case "join": 
+						sendResponse('{"reg":"1"}');
+					break;
+				
+			}
+//			sendResponse('{"response":[{"uid":"1","first_name":"Павел","last_name":"Дуров","photo":"http:\/\/cs109.vkontakte.ru\/u00001\/c_df2abf56.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"},{"uid":"6492","first_name":"Andrew","last_name":"Rogozov","photo":"http:\/\/cs537.vkontakte.ru\/u06492\/c_28629f1d.jpg"}]}');
 		}
 	}
 }

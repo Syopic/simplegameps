@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" width="100%"
+		 height="100%" rollOver="group1_rollOverHandler(event)" rollOut="group1_rollOutHandler(event)" mouseChildren="false">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import spark.primitives.Graphic;
+
+			private var gMask:Graphic = new Graphic();
+			private var iRoundRectRadius:int = 0;
+
+			public function set sourceLink(value:Object):void {
+				avatar.source = value;
+				avatar.addEventListener(Event.COMPLETE, onLoadImage);
+				//invalidateProperties();
+			}
+
+			public function set roundRectRadius(value:int):void {
+				iRoundRectRadius = value;
+				invalidateDisplayList();
+			}
+
+			override protected function createChildren():void {
+				super.createChildren();
+				addElement(gMask);
+			}
+
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+				var gGraph:Graphics = gMask.graphics;
+
+				gGraph.beginFill(0, 1.0);
+				gGraph.drawRoundRect(0, 0, unscaledWidth, unscaledHeight, iRoundRectRadius, iRoundRectRadius);
+				gGraph.endFill();
+
+				avatar.mask = gMask;
+			}
+
+			private function onLoadImage(event:Event):void {
+				var iWidth:int = avatar.contentWidth;
+				var iHeight:int = avatar.contentHeight;
+				if (iWidth != 0 && iHeight != 0) {
+					var nScale:Number;
+					if (iWidth < iHeight) {
+						nScale = unscaledWidth / iWidth;
+					} else {
+						nScale = unscaledHeight / iHeight;
+					}
+					avatar.scaleX = nScale;
+					avatar.scaleY = nScale;
+				}
+			}
+
+
+
+			protected function group1_rollOverHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				var brite:int = 32;
+				var color:ColorTransform = new ColorTransform();
+				color.redOffset = brite;
+				color.greenOffset = brite;
+				color.blueOffset = brite;
+				transform.colorTransform = color;
+			}
+
+
+			protected function group1_rollOutHandler(event:MouseEvent):void {
+				var brite:int = 0;
+				var color:ColorTransform = new ColorTransform();
+				color.redOffset = brite;
+				color.greenOffset = brite;
+				color.blueOffset = brite;
+				transform.colorTransform = color;
+			}
+		]]>
+	</fx:Script>
+	<mx:Image id="avatar" loaderContext="{new LoaderContext()}" trustContent="true" />
+</s:Group>

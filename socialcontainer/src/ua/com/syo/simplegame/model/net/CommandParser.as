@@ -6,6 +6,8 @@ package ua.com.syo.simplegame.model.net {
 	
 	import mx.core.FlexGlobals;
 	
+	import ua.com.syo.simplegame.model.UserData;
+	import ua.com.syo.simplegame.model.net.social.VKData;
 	import ua.kiev.djm.core.log.Logger;
 	import ua.kiev.djm.core.net.cmd.ICommandParser;
 	
@@ -18,9 +20,8 @@ package ua.com.syo.simplegame.model.net {
 			return _instance;
 		}
 		
-		public var lastRequestCommand:String = "getProfiles";
-		
 		public function parse(command:*): void {
+			Logger.trace("[Server]: " + command.toString);
 			try {
 				var result:Object = JSON.decode(command);
 			} catch (error:Error) {
@@ -28,14 +29,27 @@ package ua.com.syo.simplegame.model.net {
 			}
 			
 			if (result) {
+				
 				if (result.error) {
 					// VK API
-					if (result.error.error_msg) {
+					if (!(result.error is String) &&  result.error.error_msg) {
 						Logger.ERROR("API ERROR : " + result.error.error_msg);
+					} else {
+						Logger.ERROR(result.error);
 					}
 				} else {
-					if (lastRequestCommand == "getProfiles") {
-						FlexGlobals.topLevelApplication.friendPanel.setData(result.response);
+					// registration
+					if (result.reg) {
+						if (result.reg == "no") {
+							VKData.getProfiles();
+						}
+						if (result.reg == "ok") {
+							VKData.getProfiles();
+						}
+					}
+					// userInfo
+					if (result.userInfo) {
+						UserData.instance.update(result.userInfo);
 					}
 				}
 				
