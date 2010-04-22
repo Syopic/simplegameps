@@ -178,9 +178,9 @@ package ua.com.syo.socialps.view.stage {
 					element.destroy();
 					
 				}
-				/*while (bonusContainer.getChildAt(0)) {
+				while (bonusContainer.numChildren > 0) {
 					bonusContainer.removeChildAt(0);
-				}*/
+				}
 			} else {
 				bonusContainer = new Sprite();
 				addChild(bonusContainer);

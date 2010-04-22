@@ -8,6 +8,7 @@ package {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
 	import mx.core.Application;
@@ -51,12 +52,13 @@ package {
 			Controller.instance.addEventListener(Event.COMPLETE, completeHandler);
 			
 			// init log panel
-			var logPanel:LogPanel = new LogPanel(this, false);
-			Logger.setTarget(logPanel);
+			/*var logPanel:LogPanel = new LogPanel(this, false);
+			Logger.setTarget(logPanel);*/
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
 		}
 		
@@ -70,6 +72,10 @@ package {
 		
 		private function mouseWheelHandler(event:MouseEvent):void {
 			StageView.instance.mouseWheelHandler(event);
+		}
+		
+		private function keyDownHandler(event:KeyboardEvent):void {
+			connectTest();
 		}
 		
 		public function connectTest():void {
