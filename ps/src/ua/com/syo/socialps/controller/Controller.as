@@ -8,6 +8,7 @@ package ua.com.syo.socialps.controller {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
+	import ua.com.syo.socialps.model.Model;
 	import ua.com.syo.socialps.view.UIManager;
 	import ua.com.syo.socialps.view.stage.StageView;
 	
@@ -32,6 +33,7 @@ package ua.com.syo.socialps.controller {
 		 */
 		public function init():void {
 			UIManager.instance.init();
+			Model.instance.init();
 		}
 		
 		public function runGame():void {

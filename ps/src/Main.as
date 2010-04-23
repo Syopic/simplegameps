@@ -7,9 +7,11 @@
 package {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.DataEvent;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.system.Security;
 	
 	import mx.core.Application;
 	import mx.core.FlexLoader;
@@ -22,6 +24,7 @@ package {
 	import ua.com.syo.socialps.view.stage.StageView;
 	import ua.kiev.djm.core.log.Logger;
 	import ua.kiev.djm.core.log.targets.LogPanel;
+	import ua.kiev.djm.core.net.connections.events.CommunicateEvent;
 	
 	[SWF(width="730", height = "730", frameRate = "41")]
 	
@@ -32,6 +35,7 @@ package {
 		 */
 		public function Main() {
 			// wait for initialisation
+			Security.allowDomain("*");
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
@@ -41,6 +45,7 @@ package {
 		 */
 		private function init(event:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
 			
 			Globals.stageW = stage.stageWidth;
 			Globals.stageH = stage.stageHeight;
@@ -83,7 +88,10 @@ package {
 		}
 		
 		public function completeHandler(event:Event):void {
-			(((this.parent as FlexLoader).root as SystemManager).application as Object).innerCall(Model.instance.score + 1);
+			var dEvent:DataEvent = new DataEvent(DataEvent.DATA);
+			dEvent.data = (Model.instance.score + 1).toString();
+			dispatchEvent(dEvent);
+			//(((this.parent as FlexLoader).root as SystemManager).application as Object).innerCall(Model.instance.score + 1);
 		}
 	}
 }
