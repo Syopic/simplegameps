@@ -1,6 +1,7 @@
 package ua.com.syo.simplegame.model {
 	
 	import flash.events.EventDispatcher;
+	import flash.system.Security;
 	
 	import ru.vkontakte.VKApi;
 	
@@ -26,24 +27,32 @@ package ua.com.syo.simplegame.model {
 		
 		
 		public function init():void {
+			checkPolicy();
 			connect();
 		}
 		
+		private function checkPolicy():void {
+			Security.loadPolicyFile("http://89.252.12.14:2080/crossdomain.xml");
+			
+			Security.loadPolicyFile("http://vkontakte.ru/crossdomain.xml");
+			Security.loadPolicyFile("http://cs9458.vkontakte.ru/crossdomain.xml");
+		}
+		
 		private function connect():void {
-			var ca:ConnectionAttributes = new ConnectionAttributes()
+			/*var ca:ConnectionAttributes = new ConnectionAttributes()
 			ca.setParser(CommandParser.instance);
-			var connection:ServerMockConnection = new ServerMockConnection("main", ca);
+			var connection:ServerMockConnection = new ServerMockConnection("mock", ca);
 			connection.serverMock = new TestServer();
 			
 			connection.addEventListener(CommunicateEvent.CONNECT, connectHandler);
-			ServerProxy.instance.addConnection(connection);
+			ServerProxy.instance.addConnection(connection);*/
 			
-			/*var ca:ConnectionAttributes = new ConnectionAttributes("http://89.252.12.14:2080/go.php");
+			var ca:ConnectionAttributes = new ConnectionAttributes("http://89.252.12.14:2080/go.php");
 			ca.setParser(CommandParser.instance);
 			var connection:HTTPConnection = new HTTPConnection("main", ca);
 			
 			connection.addEventListener(CommunicateEvent.CONNECT, connectHandler);
-			ServerProxy.instance.addConnection(connection);*/
+			ServerProxy.instance.addConnection(connection);
 		}
 		
 		private function connectHandler(event:CommunicateEvent):void {

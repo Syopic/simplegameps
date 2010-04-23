@@ -21,7 +21,6 @@ package ua.com.syo.simplegame.model.net {
 		}
 		
 		public function parse(command:*): void {
-			Logger.trace("[Server]: " + command.toString);
 			try {
 				var result:Object = JSON.decode(command);
 			} catch (error:Error) {

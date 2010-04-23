@@ -8,7 +8,7 @@
 		<![CDATA[
 			
 			[Bindable]
-			private var avatarImgPath:String = "D:/_work/SocialFramework/SimpleGame/assets/img/avatar.jpg";
+			private var avatarImgPath:String = "";
 			
 			[Bindable]
 			private var userName:String = "nothing";

@@ -39,7 +39,7 @@ package ua.com.syo.simplegame.model.net.social {
 				getAppFriends();
 			} else if (lastRequestCommand == "getAppFriends") {
 				apiAppFriends = data.source;
-				CommandSeneder.send("reg", {profile:apiProfileResponse, friends:apiAppFriends});
+				CommandSeneder.send("reg", {name:apiProfileResponse, friends:apiAppFriends});
 			}
 		}
 		

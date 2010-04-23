@@ -23,6 +23,9 @@ package ua.com.syo.simplegame.model {
 
 		[Bindable]
 		public var score:int = 0;
+		
+		[Bindable]
+		public var photo:String;
 
 		/**
 		 * update UserData vars by name
