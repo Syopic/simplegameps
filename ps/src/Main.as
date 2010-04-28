@@ -57,13 +57,13 @@ package {
 			Controller.instance.addEventListener(Event.COMPLETE, completeHandler);
 			
 			// init log panel
-			/*var logPanel:LogPanel = new LogPanel(this, false);
-			Logger.setTarget(logPanel);*/
+			var logPanel:LogPanel = new LogPanel(this, false);
+			Logger.setTarget(logPanel);
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
 		}
 		

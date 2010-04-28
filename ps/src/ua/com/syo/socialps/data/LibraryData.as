@@ -30,6 +30,10 @@ package ua.com.syo.socialps.data{
 		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "ScoreBar")]
 		public static var ScoreBarC:Class;
+		
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "DirectArrowC")]
+		public static var DirectArrowC:Class;
 
 	}
 }

@@ -11,6 +11,7 @@ package ua.com.syo.socialps.view.stage {
 	
 	import ua.com.syo.socialps.data.Globals;
 	import ua.com.syo.socialps.data.LibraryData;
+	import ua.com.syo.socialps.view.UIManager;
 	
 	
 	public class SkaterView extends Sprite {
@@ -48,9 +49,23 @@ package ua.com.syo.socialps.view.stage {
 		
 		public function mouseDownReaction():void {
 			insideMc.gotoAndPlay("turn");
+			
 		}
 		
+		private var currentHalfIsLeft:Boolean = true;
+		
 		public function move():void {
+			if (mouseX > 0 ) {
+				if (currentHalfIsLeft) {
+					GUIContainer.instance.showDirectArrow(false);
+					currentHalfIsLeft = false;
+				}
+			} else {
+				if (!currentHalfIsLeft) {
+					GUIContainer.instance.showDirectArrow();
+					currentHalfIsLeft = true;
+				}
+			}
 			if (isRotation) {
 				if (mouseX > 0) {
 					angle += dAngle;
@@ -78,6 +93,7 @@ package ua.com.syo.socialps.view.stage {
 				insideMc.gotoAndStop("static");
 			}
 			speed += dS;
+			GUIContainer.instance.updateSpeed(Math.round(speed * 10));
 			
 			dx = speed * Math.sin(Math.PI / 180 * angle);
 			dy = speed * (-Math.cos(Math.PI / 180 * angle)) * (Globals.isoScale);

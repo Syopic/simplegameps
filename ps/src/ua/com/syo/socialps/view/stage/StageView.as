@@ -13,9 +13,11 @@ package ua.com.syo.socialps.view.stage {
 	import ua.com.syo.socialps.controller.Controller;
 	import ua.com.syo.socialps.data.Globals;
 	import ua.com.syo.socialps.data.LibraryData;
+	import ua.com.syo.socialps.data.StageData;
 	import ua.com.syo.socialps.model.Model;
 	import ua.com.syo.socialps.view.UIManager;
 	import ua.com.syo.socialps.view.stage.indicator.IndicatorView;
+	import ua.kiev.djm.core.log.Logger;
 
 	public class StageView extends Sprite {
 
@@ -64,7 +66,7 @@ package ua.com.syo.socialps.view.stage {
 			initBonuses();
 			initLevel();
 		}
-		
+
 		public function run():void {
 			initBonuses();
 			scaleX = scaleY = defaultScale;
@@ -75,7 +77,7 @@ package ua.com.syo.socialps.view.stage {
 			toScale = 0.5;
 			Controller.instance.isRunning = true;
 		}
-		
+
 		public function correctEnding():void {
 			Controller.instance.isRunning = false;
 			Controller.instance.endGameCall();
@@ -115,9 +117,9 @@ package ua.com.syo.socialps.view.stage {
 			bgContainer = new Sprite();
 			addChild(bgContainer);
 			// draw bg color rectangle
-			/*bgContainer.graphics.beginFill(0x00789F);
-			bgContainer.graphics.drawRect(0, 0, Globals.stageW, Globals.stageH);
-			bgContainer.graphics.endFill();*/
+		/*bgContainer.graphics.beginFill(0x00789F);
+		   bgContainer.graphics.drawRect(0, 0, Globals.stageW, Globals.stageH);
+		 bgContainer.graphics.endFill();*/
 		}
 
 		/**
@@ -128,7 +130,7 @@ package ua.com.syo.socialps.view.stage {
 			addChild(markContainer);
 
 			waterMarkStack = new Array();
-			for (var j:int = 0; j < 140; j++) {
+			for (var j:int = 0; j < 20; j++) {
 				var wm:WaterMarkView = new WaterMarkView();
 				waterMarkStack.push(wm);
 				markContainer.addChild(wm);
@@ -176,7 +178,7 @@ package ua.com.syo.socialps.view.stage {
 				for (var j:int = 0; j < bonusStack.length; j++) {
 					var element:Bonus = bonusStack[j] as Bonus;
 					element.destroy();
-					
+
 				}
 				while (bonusContainer.numChildren > 0) {
 					bonusContainer.removeChildAt(0);
@@ -185,18 +187,45 @@ package ua.com.syo.socialps.view.stage {
 				bonusContainer = new Sprite();
 				addChild(bonusContainer);
 			}
+			bonusStack = new Array();
+			showNextBonus();
+			bonusCounter = 0;
+		/*bonusStack = new Array();
+
+		   // MOCK
+		   for (var i:int = 0; i < 10; i++) {
+		   var bonus:Bonus = new Bonus("t" + i);
+		   bonusContainer.addChild(bonus);
+		   bonus.x = Math.random() * 2000 - 1000;
+		   bonus.y = Math.random() * 2000 - 1000;
+		   bonusStack.push(bonus);
+		 }*/
+		}
+
+		private var bonusCounter:int = 0;
+
+		private function showNextBonus():void {
+			/*for (var j:int = 0; j < bonusStack.length; j++) {
+				var element:Bonus = bonusStack[j] as Bonus;
+				element.destroy();
+			}
+			while (bonusContainer.numChildren > 0) {
+				bonusContainer.removeChildAt(0);
+			}*/
 			
 			bonusStack = new Array();
-			
-			// MOCK
-			for (var i:int = 0; i < 10; i++) {
-				var bonus:Bonus = new Bonus("t" + i);
+			//Logger.DEBUG(bonusCounter);
+			if (bonusCounter < StageData.bonusPosArray.length) {
+				var bonus:Bonus = new Bonus("t" + bonusCounter);
 				bonusContainer.addChild(bonus);
-				bonus.x = Math.random() * 2000 - 1000;
-				bonus.y = Math.random() * 2000 - 1000;
+				bonus.x = (StageData.bonusPosArray[bonusCounter] as Point).x;
+				bonus.y = (StageData.bonusPosArray[bonusCounter] as Point).y;
 				bonusStack.push(bonus);
+				GUIContainer.instance.updateBonuses(bonusCounter, StageData.bonusPosArray.length);
+				bonusCounter++;
 			}
 		}
+
 
 		/**
 		 * event from main stage
@@ -214,21 +243,22 @@ package ua.com.syo.socialps.view.stage {
 						if (Math.random() * 10 > 5) {
 							StageView.instance.showWaterMark(tps);
 						}
-						
+
 						// hit test
 						var p:Point = localToGlobal(new Point(tps.x, tps.y));
 						if (levelContainer["collision"].hitTestPoint(p.x, p.y, true)) {
 							correctEnding();
 						}
-						
+
 						for (var j:int = 0; j < bonusStack.length; j++) {
 							if ((bonusStack[j] as Bonus).hitTestPoint(p.x, p.y, true)) {
 								(bonusStack[j] as Bonus).destroy();
 								bonusContainer.removeChild(bonusStack[j] as Bonus);
 								mainPS.slow();
+								showNextBonus();
 							}
 						}
-						
+
 
 						bonusContainer.x = levelContainer.x = markContainer.x -= tps.dx;
 						bonusContainer.y = levelContainer.y = markContainer.y -= tps.dy;
@@ -239,7 +269,7 @@ package ua.com.syo.socialps.view.stage {
 						y += Globals.stageH / 2 - p.y;
 						Model.instance.score++;
 						UIManager.instance.guiContainer.updateScore(Model.instance.score);
-							//toScale = 1 - mainPS.speed / 100;
+							//toScale = 1 - mainPS.speed / 70;
 					} else {
 						tps.x += tps.dx - mainPS.dx;
 						tps.y += tps.dy - mainPS.dy;
