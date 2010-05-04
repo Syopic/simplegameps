@@ -10,14 +10,23 @@ package ua.com.syo.socialps.data{
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "PondSkaterC")]
 		public static var PondSkaterC:Class;
 		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "PondSkaterDamageC")]
+		public static var PondSkaterDamageC:Class;
+		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "WaterWaveC")]
 		public static var WaterWaveC:Class;
 		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "MarkC")]
 		public static var MarkC:Class;
 		
+		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "TestLevel")]
 		public static var TestLevelC:Class;
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "LevelObjectsC")]
+		public static var LevelObjectsC:Class;
+		
+		
 		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "Indicator")]
 		public static var IndicatorC:Class;

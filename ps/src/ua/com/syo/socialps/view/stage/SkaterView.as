@@ -47,15 +47,27 @@ package ua.com.syo.socialps.view.stage {
 			speed = beginSpeed;
 		}
 		
-		public function mouseDownReaction():void {
+		private var isKey:Boolean = false;
+		private var isLeft:Boolean = false;
+		
+		public function mouseDownReaction(isKey:Boolean, isLeft:Boolean):void {
 			insideMc.gotoAndPlay("turn");
-			
+			this.isKey = isKey; 
+			this.isLeft = isLeft; 
 		}
 		
 		private var currentHalfIsLeft:Boolean = true;
 		
 		public function move():void {
-			if (mouseX > 0 ) {
+			var isLeftTurn:Boolean = isLeft;
+			if (isKey) {
+				isLeftTurn = isLeft;
+			} else {
+				isLeftTurn = mouseX < 0
+			}
+			
+			
+			if (!isLeftTurn) {
 				if (currentHalfIsLeft) {
 					GUIContainer.instance.showDirectArrow(false);
 					currentHalfIsLeft = false;
@@ -67,7 +79,7 @@ package ua.com.syo.socialps.view.stage {
 				}
 			}
 			if (isRotation) {
-				if (mouseX > 0) {
+				if (!isLeftTurn) {
 					angle += dAngle;
 				} else {
 					angle -= dAngle;
@@ -81,7 +93,7 @@ package ua.com.syo.socialps.view.stage {
 				dAngle = 1;
 				angleInertion -= 0.3;
 				if (angleInertion > 0) { 
-					if (mouseX > 0) {
+					if (!isLeftTurn) {
 						angle += angleInertion;
 					} else {
 						angle -= angleInertion;
@@ -98,6 +110,7 @@ package ua.com.syo.socialps.view.stage {
 			dx = speed * Math.sin(Math.PI / 180 * angle);
 			dy = speed * (-Math.cos(Math.PI / 180 * angle)) * (Globals.isoScale);
 		}
+		
 		
 		public function slow():void {
 			speed = speed / 2;

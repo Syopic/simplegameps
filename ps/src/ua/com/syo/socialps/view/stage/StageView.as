@@ -55,6 +55,8 @@ package ua.com.syo.socialps.view.stage {
 		private var defaultScale:Number = 1;
 		private var toScale:Number = 0.5;
 		private var markIncr:int = 0;
+		
+		private var isJolting:int = 0;
 
 		/**
 		 * init
@@ -62,17 +64,18 @@ package ua.com.syo.socialps.view.stage {
 		public function init():void {
 			initBG();
 			initMarkers();
+			initLevel();
 			initPS();
 			initBonuses();
-			initLevel();
+			initObjects();
 		}
 
 		public function run():void {
 			initBonuses();
 			scaleX = scaleY = defaultScale;
 			Model.instance.score = 0;
-			markContainer.x = bonusContainer.x = psContainer.x = levelContainer.x = bgContainer.x = 0;
-			markContainer.y = bonusContainer.y = psContainer.y = levelContainer.y = bgContainer.y = 0;
+			markContainer.x = bonusContainer.x = psContainer.x = levelContainer.x = objectsContainer.x = bgContainer.x = 0;
+			markContainer.y = bonusContainer.y = psContainer.y = levelContainer.y = objectsContainer.y = bgContainer.y = 0;
 			mainPS.init(Globals.stageW / 2, Globals.stageH / 2);
 			toScale = 0.5;
 			Controller.instance.isRunning = true;
@@ -81,14 +84,15 @@ package ua.com.syo.socialps.view.stage {
 		public function correctEnding():void {
 			Controller.instance.isRunning = false;
 			Controller.instance.endGameCall();
+			isJolting = 10;
 		}
 
 		/**
 		 * mouse down event from main stage
 		 */
-		public function userMouseDown():void {
+		public function userMouseDown(isKey:Boolean = false, isLeft:Boolean = false):void {
 			mainPS.isRotation = true;
-			mainPS.mouseDownReaction();
+			mainPS.mouseDownReaction(isKey, isLeft);
 		}
 
 		/**
@@ -188,8 +192,8 @@ package ua.com.syo.socialps.view.stage {
 				addChild(bonusContainer);
 			}
 			bonusStack = new Array();
-			showNextBonus();
 			bonusCounter = 0;
+			showNextBonus();
 		/*bonusStack = new Array();
 
 		   // MOCK
@@ -201,7 +205,7 @@ package ua.com.syo.socialps.view.stage {
 		   bonusStack.push(bonus);
 		 }*/
 		}
-
+		
 		private var bonusCounter:int = 0;
 
 		private function showNextBonus():void {
@@ -221,11 +225,16 @@ package ua.com.syo.socialps.view.stage {
 				bonus.x = (StageData.bonusPosArray[bonusCounter] as Point).x;
 				bonus.y = (StageData.bonusPosArray[bonusCounter] as Point).y;
 				bonusStack.push(bonus);
-				GUIContainer.instance.updateBonuses(bonusCounter, StageData.bonusPosArray.length);
+				//GUIContainer.instance.updateBonuses(bonusCounter, StageData.bonusPosArray.length);
 				bonusCounter++;
 			}
 		}
-
+			
+		private function initObjects():void {
+			objectsContainer = new LibraryData.LevelObjectsC();
+			addChild(objectsContainer);
+			objectsContainer.scaleX = objectsContainer.scaleY = 10;
+		}
 
 		/**
 		 * event from main stage
@@ -260,8 +269,8 @@ package ua.com.syo.socialps.view.stage {
 						}
 
 
-						bonusContainer.x = levelContainer.x = markContainer.x -= tps.dx;
-						bonusContainer.y = levelContainer.y = markContainer.y -= tps.dy;
+						bonusContainer.x = levelContainer.x = objectsContainer.x = markContainer.x -= tps.dx;
+						bonusContainer.y = levelContainer.y = objectsContainer.y = markContainer.y -= tps.dy;
 
 						scaleY = scaleX += (toScale - scaleX) / 20;
 
@@ -275,6 +284,11 @@ package ua.com.syo.socialps.view.stage {
 						tps.y += tps.dy - mainPS.dy;
 					}
 				}
+			}
+			if (isJolting > 0) {
+				isJolting --;
+				this.x += Math.random() * mainPS.speed / 2 - mainPS.speed / 4;
+				this.y += Math.random() * mainPS.speed / 2 - mainPS.speed / 4;
 			}
 		}
 
@@ -299,11 +313,6 @@ package ua.com.syo.socialps.view.stage {
 			}
 			wm = null;
 		}
-
-
-		public function movePS():void {
-			//ps.x += 10;
-		}
-
+		
 	}
 }

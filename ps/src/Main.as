@@ -64,6 +64,7 @@ package {
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 			
 		}
 		
@@ -80,7 +81,21 @@ package {
 		}
 		
 		private function keyDownHandler(event:KeyboardEvent):void {
-			connectTest();
+			switch (event.keyCode) {
+				case 32:
+					connectTest();
+					break;
+				case 37:
+					StageView.instance.userMouseDown(true, true);
+					break;
+				case 39:
+					StageView.instance.userMouseDown(true, false);
+					break;
+			}
+			
+		}
+		private function keyUpHandler(event:KeyboardEvent):void {
+			StageView.instance.userMouseUp();
 		}
 		
 		public function connectTest():void {
@@ -91,7 +106,6 @@ package {
 			var dEvent:DataEvent = new DataEvent(DataEvent.DATA);
 			dEvent.data = (Model.instance.score + 1).toString();
 			dispatchEvent(dEvent);
-			//(((this.parent as FlexLoader).root as SystemManager).application as Object).innerCall(Model.instance.score + 1);
 		}
 	}
 }

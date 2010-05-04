@@ -46,7 +46,7 @@ package ua.com.syo.socialps.view.stage {
 		}
 		
 		public function updateBonuses(value:int, maxValue:int):void {
-			slowTF.text = value + "/" + maxValue;
+			//slowTF.text = value + "/" + maxValue;
 		}
 		
 		public function updateSpeed(value:int):void {
