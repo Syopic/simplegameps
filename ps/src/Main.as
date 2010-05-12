@@ -7,6 +7,7 @@
 package {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	import flash.events.DataEvent;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -60,12 +61,12 @@ package {
 			/*var logPanel:LogPanel = new LogPanel(this, false);
 			Logger.setTarget(logPanel);*/
 			
+			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
-			
 		}
 		
 		private function mouseDownHandler(event:MouseEvent):void {
@@ -73,6 +74,7 @@ package {
 		}
 		
 		private function mouseUpHandler(event:MouseEvent):void {
+			currKeyDown = 0;
 			StageView.instance.userMouseUp();
 		}
 		
@@ -80,16 +82,30 @@ package {
 			StageView.instance.mouseWheelHandler(event);
 		}
 		
+		private var currKeyDown:int = 0;
+		
 		private function keyDownHandler(event:KeyboardEvent):void {
 			switch (event.keyCode) {
 				case 32:
-					connectTest(2);
+					if (parent is Stage) {
+						connectTest(1);
+					}
 					break;
 				case 37:
-					StageView.instance.userMouseDown(true, true);
+					if (currKeyDown == 39) {
+						StageView.instance.userMouseUp();
+					}
+					if (currKeyDown != 37) {
+						StageView.instance.userMouseDown(true, true);
+					}
 					break;
 				case 39:
-					StageView.instance.userMouseDown(true, false);
+					if (currKeyDown == 37) {
+						StageView.instance.userMouseUp();
+					}
+					if (currKeyDown != 39) {
+						StageView.instance.userMouseDown(true, false);
+					}
 					break;
 			}
 		}
