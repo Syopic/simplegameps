@@ -40,6 +40,7 @@
 			
 			private function aletCloseHandler(event:Event):void {
 				currentState = 'expand';
+				startButton.setFocus();
 			}
 			
 			private function dataHandler(event:DataEvent):void {
