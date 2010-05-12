@@ -19,6 +19,8 @@
 			<base:CropImage sourceLink="{UserData.instance.photo}" x="1" y="1" width="51" height="51" roundRectRadius="3"/>
 		</s:BorderContainer>
 		<s:Label x="68" y="10" text="{UserData.instance.name}" width="120"/>
-		<s:Label x="68" y="40" text="Score: {UserData.instance.score}" width="120"/>
+		<s:Label x="68" y="28" text="Score: {UserData.instance.score}" width="120" height="14"/>
+		<s:Label x="68" y="46" text="Level: {UserData.instance.lvl}" width="120" height="14"/>
+		<mx1:ProgressBar x="7" y="73" width="185" indeterminate="false" labelPlacement="center" label="25/100" fontSize="11" fontWeight="normal" height="14"/>
 	</s:BorderContainer>
 </s:Group>

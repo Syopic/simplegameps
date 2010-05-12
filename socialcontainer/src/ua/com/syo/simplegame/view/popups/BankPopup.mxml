@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 name="bank"
+		 close="{PopUpManager.removePopUp(this);}"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" cornerRadius="5" title="Купить РД">
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+		]]>
+	</fx:Script>
+	<s:Button x="318" y="236" label="Закрыть"/>
+	<s:Button x="163" y="169" label="Перевести"/>
+	<s:Label x="10" y="10" text="У вас 0 голосов ВКонтакте"/>
+	<s:Label x="4" y="30" text="Голоса можно перевести в игровую валюту РД (реальные деньги) . Для этого выполните следующие действия:" height="35" width="384"/>
+	<s:NumericStepper x="102" y="167"/>
+</s:TitleWindow>
