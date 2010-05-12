@@ -71,6 +71,7 @@ package ua.com.syo.socialps.view.stage {
 		}
 
 		public function run():void {
+			initLevel();
 			initBonuses();
 			scaleX = scaleY = defaultScale;
 			Model.instance.score = 0;
@@ -79,11 +80,11 @@ package ua.com.syo.socialps.view.stage {
 			mainPS.init(Globals.stageW / 2, Globals.stageH / 2);
 			toScale = 0.5;
 			Controller.instance.isRunning = true;
+			initObjects();
 		}
 
 		public function correctEnding():void {
 			Controller.instance.isRunning = false;
-			Controller.instance.endGameCall();
 			isJolting = 10;
 		}
 
@@ -120,10 +121,6 @@ package ua.com.syo.socialps.view.stage {
 		private function initBG():void {
 			bgContainer = new Sprite();
 			addChild(bgContainer);
-			// draw bg color rectangle
-		/*bgContainer.graphics.beginFill(0x00789F);
-		   bgContainer.graphics.drawRect(0, 0, Globals.stageW, Globals.stageH);
-		 bgContainer.graphics.endFill();*/
 		}
 
 		/**
@@ -169,8 +166,25 @@ package ua.com.syo.socialps.view.stage {
 		 * init level terrain
 		 */
 		private function initLevel():void {
-			levelContainer = new LibraryData.TestLevelC();
-			addChild(levelContainer);
+			if (levelContainer && contains(levelContainer)) {
+				while (levelContainer.numChildren > 0) {
+					levelContainer.removeChildAt(0);
+				}
+			} else {
+				levelContainer = new Sprite();
+				addChild(levelContainer);
+			}
+			
+			var levSprite:Sprite;
+			switch (Globals.currentLevelNum) {
+				case 1: 
+					levSprite = new LibraryData.TestLevelC();
+					break;
+				case 2: 
+					levSprite = new LibraryData.TestLevel2C();
+					break;
+			}
+			levelContainer.addChild(levSprite);
 			levelContainer.scaleX = levelContainer.scaleY = 10;
 		}
 
@@ -225,14 +239,31 @@ package ua.com.syo.socialps.view.stage {
 				bonus.x = (StageData.bonusPosArray[bonusCounter] as Point).x;
 				bonus.y = (StageData.bonusPosArray[bonusCounter] as Point).y;
 				bonusStack.push(bonus);
-				//GUIContainer.instance.updateBonuses(bonusCounter, StageData.bonusPosArray.length);
+				GUIContainer.instance.updateBonuses(bonusCounter, StageData.bonusPosArray.length);
 				bonusCounter++;
 			}
 		}
 			
 		private function initObjects():void {
-			objectsContainer = new LibraryData.LevelObjectsC();
-			addChild(objectsContainer);
+			if (objectsContainer && contains(objectsContainer)) {
+				while (objectsContainer.numChildren > 0) {
+					objectsContainer.removeChildAt(0);
+				}
+			} else {
+				objectsContainer = new Sprite();
+				addChild(objectsContainer);
+			}
+			
+			var objSprite:Sprite;
+			switch (Globals.currentLevelNum) {
+				case 1: 
+					objSprite = new LibraryData.LevelObjectsC();
+					break;
+				case 2: 
+					objSprite = new LibraryData.LevelObjects2C();
+					break;
+			}
+			objectsContainer.addChild(objSprite);
 			objectsContainer.scaleX = objectsContainer.scaleY = 10;
 		}
 
@@ -255,7 +286,7 @@ package ua.com.syo.socialps.view.stage {
 
 						// hit test
 						var p:Point = localToGlobal(new Point(tps.x, tps.y));
-						if (levelContainer["collision"].hitTestPoint(p.x, p.y, true)) {
+						if (levelContainer.getChildAt(0)["collision"].hitTestPoint(p.x, p.y, true)) {
 							correctEnding();
 						}
 
@@ -285,10 +316,13 @@ package ua.com.syo.socialps.view.stage {
 					}
 				}
 			}
-			if (isJolting > 0) {
+			if (isJolting >= 0) {
 				isJolting --;
 				this.x += Math.random() * mainPS.speed / 2 - mainPS.speed / 4;
 				this.y += Math.random() * mainPS.speed / 2 - mainPS.speed / 4;
+				if (isJolting == 0) {
+					Controller.instance.endGameCall();
+				}
 			}
 		}
 

@@ -20,11 +20,6 @@ package ua.com.syo.socialps.data{
 		public static var MarkC:Class;
 		
 		
-		[Embed(source = "/../assets/swf/library.swf" , symbol = "TestLevel")]
-		public static var TestLevelC:Class;
-		
-		[Embed(source = "/../assets/swf/library.swf" , symbol = "LevelObjectsC")]
-		public static var LevelObjectsC:Class;
 		
 		
 		
@@ -43,6 +38,21 @@ package ua.com.syo.socialps.data{
 		
 		[Embed(source = "/../assets/swf/library.swf" , symbol = "DirectArrowC")]
 		public static var DirectArrowC:Class;
+		
+		// levels
+		// 1
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "TestLevel")]
+		public static var TestLevelC:Class;
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "LevelObjectsC")]
+		public static var LevelObjectsC:Class;
+		
+		// 2
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "TestLevel2")]
+		public static var TestLevel2C:Class;
+		
+		[Embed(source = "/../assets/swf/library.swf" , symbol = "LevelObjects2C")]
+		public static var LevelObjects2C:Class;
 
 	}
 }

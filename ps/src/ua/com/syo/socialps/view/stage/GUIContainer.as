@@ -37,7 +37,9 @@ package ua.com.syo.socialps.view.stage {
 			addChild(scoreBar);
 			addChild(directArrow);
 
-			updateScore(323);
+			updateScore(0);
+			updateSpeed(0);
+			slowTF.text = "/";
 			directArrow.alpha = 0;
 		}
 
@@ -46,7 +48,9 @@ package ua.com.syo.socialps.view.stage {
 		}
 		
 		public function updateBonuses(value:int, maxValue:int):void {
-			//slowTF.text = value + "/" + maxValue;
+			if (slowTF) {
+				slowTF.text = value + "/" + maxValue;
+			}
 		}
 		
 		public function updateSpeed(value:int):void {

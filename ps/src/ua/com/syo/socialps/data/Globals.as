@@ -12,5 +12,7 @@ package ua.com.syo.socialps.data {
 		public static var stageW:Number;
 		public static var stageH:Number;
 		
+		public static var currentLevelNum:int = 1;
+		
 	}
 }

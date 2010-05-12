@@ -57,8 +57,8 @@ package {
 			Controller.instance.addEventListener(Event.COMPLETE, completeHandler);
 			
 			// init log panel
-			var logPanel:LogPanel = new LogPanel(this, false);
-			Logger.setTarget(logPanel);
+			/*var logPanel:LogPanel = new LogPanel(this, false);
+			Logger.setTarget(logPanel);*/
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
@@ -83,7 +83,7 @@ package {
 		private function keyDownHandler(event:KeyboardEvent):void {
 			switch (event.keyCode) {
 				case 32:
-					connectTest();
+					connectTest(2);
 					break;
 				case 37:
 					StageView.instance.userMouseDown(true, true);
@@ -92,19 +92,19 @@ package {
 					StageView.instance.userMouseDown(true, false);
 					break;
 			}
-			
 		}
 		private function keyUpHandler(event:KeyboardEvent):void {
 			StageView.instance.userMouseUp();
 		}
 		
-		public function connectTest():void {
+		public function connectTest(levelNum:int):void {
+			Globals.currentLevelNum = levelNum;
 			Controller.instance.runGame();
 		}
 		
 		public function completeHandler(event:Event):void {
 			var dEvent:DataEvent = new DataEvent(DataEvent.DATA);
-			dEvent.data = (Model.instance.score + 1).toString();
+			dEvent.data = (Model.instance.score).toString();
 			dispatchEvent(dEvent);
 		}
 	}
